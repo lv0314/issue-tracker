@@ -44,7 +44,7 @@ module.exports = {
 		],
 	},
 	entry: {
-		app: path.join(__dirname, "src", "index.jsx"),
+		app: path.join(__dirname, "src", "index.tsx"),
 	},
 	output: {
 		filename: "[name].js",
