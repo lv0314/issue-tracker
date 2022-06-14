@@ -2,11 +2,11 @@ oauth2:
   user:
     github:
       client-id: 4e597e64bba6fcb0ed4a
-      client-secret: ${비밀키}
+      client-secret: ${abd3848b7049e00f3099444cf9865bfca2c78671}
       redirect-uri: http://localhost:8080/redirect/oauth
     google:
       client-id: 732481418367-3f84mu1hfof1fsiqeqn0ef2ekbab2e0p.apps.googleusercontent.com
-      client-secret: ${비밀키}
+      client-secret: ${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}
       redirect-uri: http://localhost:8080/redirect/oauth
   provider:
     github:
