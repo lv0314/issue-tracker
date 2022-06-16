@@ -1,4 +1,4 @@
-package team25.issuetracker;
+package team25.issuetracker.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
+import team25.issuetracker.Role;
 
 @Getter
 @Entity
