@@ -2,6 +2,7 @@ package team25.issuetracker;
 
 import lombok.Builder;
 import lombok.Getter;
+import team25.issuetracker.domain.Member;
 
 @Getter
 public class UserProfile {

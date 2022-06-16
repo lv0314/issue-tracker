@@ -1,4 +1,4 @@
-package team25.issuetracker;
+package team25.issuetracker.service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -9,6 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import team25.issuetracker.repository.InMemoryProviderRepository;
+import team25.issuetracker.JwtTokenProvider;
+import team25.issuetracker.LoginResponse;
+import team25.issuetracker.domain.Member;
+import team25.issuetracker.repository.MemberRepository;
+import team25.issuetracker.OauthAttributes;
+import team25.issuetracker.OauthProvider;
+import team25.issuetracker.OauthTokenResponse;
+import team25.issuetracker.UserProfile;
 
 @Service
 public class OauthService {
@@ -17,7 +26,8 @@ public class OauthService {
 	private final MemberRepository memberRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 
-	public OauthService(InMemoryProviderRepository inMemoryProviderRepository, MemberRepository memberRepository,
+	public OauthService(InMemoryProviderRepository inMemoryProviderRepository,
+		MemberRepository memberRepository,
 		JwtTokenProvider jwtTokenProvider) {
 		this.inMemoryProviderRepository = inMemoryProviderRepository;
 		this.memberRepository = memberRepository;
@@ -87,19 +97,22 @@ public class OauthService {
 		return formData;
 	}
 
-	private UserProfile getUserProfile(String providerName, OauthTokenResponse tokenResponse, OauthProvider provider) {
+	private UserProfile getUserProfile(String providerName, OauthTokenResponse tokenResponse,
+		OauthProvider provider) {
 		Map<String, Object> userAttributes = getUserAttributes(provider, tokenResponse);
 		return OauthAttributes.extract(providerName, userAttributes);
 	}
 
 	// OAuth 서버에서 유저 정보 map으로 가져오기
-	private Map<String, Object> getUserAttributes(OauthProvider provider, OauthTokenResponse tokenResponse) {
+	private Map<String, Object> getUserAttributes(OauthProvider provider,
+		OauthTokenResponse tokenResponse) {
 		return WebClient.create()
 			.get()
 			.uri(provider.getUserInfoUrl())
 			.headers(header -> header.setBearerAuth(tokenResponse.getAccessToken()))
 			.retrieve()
-			.bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+			.bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {
+			})
 			.block();
 	}
 }

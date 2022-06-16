@@ -1,7 +1,8 @@
-package team25.issuetracker;
+package team25.issuetracker.repository;
 
 import java.util.HashMap;
 import java.util.Map;
+import team25.issuetracker.OauthProvider;
 
 // OauthProvider를 저장해 줄 InMemory 저장소
 public class InMemoryProviderRepository {
