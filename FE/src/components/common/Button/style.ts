@@ -5,6 +5,9 @@ export type StyledButtonProps = {
   size: keyof typeof theme.buttonWidth;
   color: keyof typeof theme.color;
   fontSize: keyof typeof theme.fontSize;
+  children?: React.ReactNode;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  disabled?: boolean;
 };
 
 export const Button = styled.button.attrs<StyledButtonProps>(

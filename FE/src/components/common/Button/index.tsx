@@ -1,13 +1,22 @@
 import * as S from './style';
 
-type ButtonProps = {
-  text: string;
-} & S.StyledButtonProps;
-
-export function Button({ text, size, color, fontSize }: ButtonProps) {
+export function Button({
+  size,
+  color,
+  fontSize,
+  children,
+  onClick,
+  disabled,
+}: S.StyledButtonProps) {
   return (
-    <S.Button size={size} color={color} fontSize={fontSize}>
-      {text}
+    <S.Button
+      size={size}
+      color={color}
+      fontSize={fontSize}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
     </S.Button>
   );
 }
