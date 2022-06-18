@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.json'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.json', '.svg'],
     alias: { '@': path.resolve(__dirname, 'src') },
   },
   module: {
@@ -37,7 +37,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|svg|jpe?g|gif|ico|woff|woff2|eot|ttf|otf)&/i,
+        test: /\.(png|svg|jpe?g|gif|ico|woff|woff2|eot|ttf|otf)$/,
         type: 'asset/inline',
       },
     ],
@@ -48,11 +48,13 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    assetModuleFilename: 'assets/[hash][ext][query]',
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html'),
+      base: '/',
     }),
   ],
 };
