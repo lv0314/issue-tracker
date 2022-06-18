@@ -1,5 +1,13 @@
+import { ControlPanel } from '@/templates/ControlPanel';
+import { Header } from '@/templates/Header';
 import * as S from './style';
 
-export function IssueList() {
-  return <S.IssueList>IuuseList</S.IssueList>;
+export function IssueListPage() {
+  return (
+    <S.IssueList>
+      <Header />
+      <ControlPanel />
+      {/* <IssueList /> */}
+    </S.IssueList>
+  );
 }
