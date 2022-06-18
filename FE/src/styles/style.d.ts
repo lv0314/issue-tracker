@@ -53,5 +53,15 @@ declare module 'styled-components' {
       medium: string;
       small: string;
     };
+
+    logoWidth: {
+      medium: string;
+      large: string;
+    };
+
+    logoHeight: {
+      medium: string;
+      large: string;
+    };
   }
 }

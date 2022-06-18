@@ -52,4 +52,14 @@ export const theme: DefaultTheme = {
     medium: '56px',
     small: '40px',
   },
+
+  logoWidth: {
+    medium: '199px',
+    large: '342px',
+  },
+
+  logoHeight: {
+    medium: '40px',
+    large: '72px',
+  },
 };
