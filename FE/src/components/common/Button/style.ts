@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { theme } from '@/styles/theme';
+// TODO: import theme 없애기
 
 export type StyledButtonProps = {
   size: keyof typeof theme.buttonWidth;
