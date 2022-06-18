@@ -40,4 +40,12 @@ export const GlobalStyle = createGlobalStyle`
 	span {
 		display:block;
 	}
+
+	details > summary {
+  list-style: none;
+	}
+
+	details > summary::-webkit-details-marker {
+		display: none;
+	}
 `;
