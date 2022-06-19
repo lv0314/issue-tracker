@@ -14,7 +14,7 @@ export function LoginSection() {
     <S.Layout>
       <Button
         size="large"
-        color="black"
+        color="titleArchieve"
         fontSize="large"
         // eslint-disable-next-line react/jsx-no-bind
         onClick={onClickGitHubLogin}
@@ -23,7 +23,7 @@ export function LoginSection() {
       </Button>
       <Button
         size="large"
-        color="black"
+        color="titleArchieve"
         fontSize="large"
         // eslint-disable-next-line react/jsx-no-bind
       >
@@ -31,7 +31,7 @@ export function LoginSection() {
       </Button>
       <Button
         size="large"
-        color="black"
+        color="titleArchieve"
         fontSize="large"
         // eslint-disable-next-line react/jsx-no-bind
       >

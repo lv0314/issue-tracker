@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		background-color: ${({ theme }) => theme.color.offwhite};
+		background-color: ${({ theme }) => theme.color.background};
 		width: 100vw;
 		height: 100vh;
 		font-family: "Noto Sans KR", sans-serif;

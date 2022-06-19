@@ -10,7 +10,12 @@ export type TextStyledProps = {
 };
 
 export const Text = styled.span.attrs<TextStyledProps>(
-  ({ color = 'black', fontSize = 'base', fontWeight = 'base', styles }) => ({
+  ({
+    color = 'titleArchieve',
+    fontSize = 'base',
+    fontWeight = 'base',
+    styles,
+  }) => ({
     style: {
       color: theme.color[color],
       fontSize: theme.fontSize[fontSize],
