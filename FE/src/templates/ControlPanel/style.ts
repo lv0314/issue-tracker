@@ -20,10 +20,21 @@ export const FilterBar = styled.div<FilterBarProps>`
 export const FilterDetail = styled.details`
   display: flex;
   justify-content: space-between;
-  padding: 6px 24px;
+  align-items: center;
   width: 20%;
   border-right: 1px solid ${({ theme }) => theme.color.line};
+  height: inherit;
   gap: 8px;
+
+  summary {
+    box-sizing: border-box; // INFO: 패딩 안 넘어가게
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: inherit;
+    height: 100%;
+    padding: 6px 24px;
+  }
 `;
 
 export const FilterForm = styled.form`

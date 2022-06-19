@@ -10,9 +10,10 @@ export function ControlPanel() {
     <S.ControlPanel>
       <S.FilterBar>
         <S.FilterDetail>
-          <summary>필터</summary>
-          {/* <Text text="필터" fontWeight="bold" /> */}
-          {/* <Icon iconName={UNDER_ARROW} iconSize="base" /> */}
+          <summary>
+            <Text text="필터" fontWeight="bold" />
+            <Icon iconName={UNDER_ARROW} iconSize="base" />
+          </summary>
         </S.FilterDetail>
         {/* <S.FilterPopUp>
           <FilterList />
