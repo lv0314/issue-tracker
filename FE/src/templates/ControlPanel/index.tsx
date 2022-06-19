@@ -11,7 +11,7 @@ export function ControlPanel() {
       <S.FilterBar>
         <S.FilterDetail>
           <summary>
-            <Text text="필터" fontWeight="bold" />
+            <Text text="필터" fontWeight="bold" color="placeholder" />
             <Icon iconName={UNDER_ARROW} iconSize="base" />
           </summary>
         </S.FilterDetail>
@@ -22,7 +22,7 @@ export function ControlPanel() {
         </S.FilterPopUp> */}
         <S.FilterForm>
           <Icon iconName={SEARCH_ICON} iconSize="base" />
-          {/* <S.FilterInput /> */}
+          <S.FilterInput placeholder="Search All Issue" />
         </S.FilterForm>
       </S.FilterBar>
     </S.ControlPanel>
