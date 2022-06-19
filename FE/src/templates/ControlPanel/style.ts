@@ -1,5 +1,6 @@
 import styled, { DefaultTheme } from 'styled-components';
 // TODO: 스타일 값 매직넘버 상수화
+// TODO: 이부분 section이라고 보는게 맞을까?
 export const ControlPanel = styled.section`
   width: 100%;
 `;

@@ -11,7 +11,7 @@ export function NavigationTab() {
       </S.NavigationItem>
       <S.NavigationItem>
         <Text text="이미지" color="placeholder" fontSize="small" />
-        <Text text="레이블" color="placeholder" fontSize="small" />
+        <Text text="마일스톤" color="placeholder" fontSize="small" />
         <Text text="(2)" color="placeholder" fontSize="small" />
       </S.NavigationItem>
     </S.LayOut>
