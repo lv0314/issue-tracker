@@ -3,8 +3,7 @@ import * as S from './style';
 type BadgeProps = {
   imgSRC: string;
   alt: string;
-  styles: string;
-};
+} & S.BadgeStyledProps;
 
 export function Badge({ imgSRC, alt, styles }: BadgeProps) {
   return (

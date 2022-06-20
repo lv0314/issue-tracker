@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { theme } from '@/styles/theme';
 
 export const Callback = styled.div`
-  border: 8px solid ${theme.color.gray1}; /* Light grey */
+  border: 8px solid ${theme.color.titleArchieve}; /* Light grey */
   border-top: 8px solid ${theme.color.offwhite}; /* Blue */
   border-radius: 50%;
   width: 60px;
@@ -15,7 +15,5 @@ export const Callback = styled.div`
     to {
       transform: rotate(360deg);
     }
-  }
-  ​ {
   }
 `;

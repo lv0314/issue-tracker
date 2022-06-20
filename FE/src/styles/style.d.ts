@@ -18,19 +18,18 @@ declare module 'styled-components' {
     };
 
     color: {
-      black: string;
-      white: string;
+      primary: string;
+      secondary: string;
+      error: string;
+      success: string;
       offwhite: string;
-      gray1: string;
-      gray2: string;
-      gray3: string;
-      gray4: string;
-      gray5: string;
-      gray6: string;
-      blue: string;
-      lightblue: string;
-      lightviolet: string;
-      red: string;
+      titleArchieve: string;
+      body: string;
+      label: string;
+      placeholder: string;
+      line: string;
+      inputBackground: string;
+      background: string;
     };
 
     iconSize: {
