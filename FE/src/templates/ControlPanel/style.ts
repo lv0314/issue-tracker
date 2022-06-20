@@ -62,3 +62,37 @@ export const FilterInput = styled.input`
     outline: none;
   }
 `;
+
+export const DetailMenu = styled.div`
+  width: 240px;
+  border: 1px solid ${({ theme }) => theme.color.line};
+  border-radius: 16px;
+  position: absolute;
+  margin-top: 10px;
+  overflow: hidden;
+`;
+
+export const Detailheader = styled.div`
+  display: flex;
+  align-items: center;
+  width: inherit;
+  height: 48px;
+  padding: 8px 16px;
+  border-bottom: 1px solid ${({ theme }) => theme.color.line};
+  background-color: ${({ theme }) => theme.color.background};
+`;
+
+export const DetailList = styled.ul`
+  & :last-child {
+    border-bottom: none;
+  }
+`;
+
+export const DetailListItem = styled.li`
+  display: flex;
+  align-items: center;
+  width: inherit;
+  padding: 8px 16px;
+  background-color: ${({ theme }) => theme.color.offwhite};
+  border-bottom: 1px solid ${({ theme }) => theme.color.line};
+`;

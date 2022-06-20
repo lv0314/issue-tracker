@@ -14,12 +14,20 @@ export function ControlPanel() {
             <Text text="필터" fontWeight="bold" color="placeholder" />
             <Icon iconName={UNDER_ARROW} iconSize="base" />
           </summary>
+          <S.DetailMenu>
+            <S.Detailheader>
+              <Text text="디테일 헤더" fontSize="base" fontWeight="bold" />
+            </S.Detailheader>
+            <S.DetailList>
+              <S.DetailListItem>
+                <Text text="디테일 리스트" fontSize="small" />
+              </S.DetailListItem>
+              <S.DetailListItem>
+                <Text text="디테일 리스트" fontSize="small" />
+              </S.DetailListItem>
+            </S.DetailList>
+          </S.DetailMenu>
         </S.FilterDetail>
-        {/* <S.FilterPopUp>
-          <FilterList />
-          <FilterList />
-          <FilterList />
-        </S.FilterPopUp> */}
         <S.FilterForm>
           <Icon iconName={SEARCH_ICON} iconSize="base" />
           <S.FilterInput placeholder="Search All Issue" />
