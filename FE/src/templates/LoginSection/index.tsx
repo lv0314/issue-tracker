@@ -23,7 +23,7 @@ export function LoginSection() {
       </Button>
       <Button
         size="large"
-        color="titleArchieve"
+        color="error"
         fontSize="large"
         // eslint-disable-next-line react/jsx-no-bind
       >
@@ -31,7 +31,7 @@ export function LoginSection() {
       </Button>
       <Button
         size="large"
-        color="titleArchieve"
+        color="success"
         fontSize="large"
         // eslint-disable-next-line react/jsx-no-bind
       >
