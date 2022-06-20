@@ -3,6 +3,7 @@ import { ControlPanel } from '@/templates/ControlPanel';
 import { Header } from '@/templates/Header';
 import { NavigationTab } from '@/templates/NavigationTab';
 import * as S from './style';
+import { IssueList } from '@/templates/IssueList';
 
 const Test = styled.div`
   display: flex;
@@ -17,7 +18,7 @@ export function IssueListPage() {
         <NavigationTab />
       </Test>
 
-      {/* <IssueList /> */}
+      <IssueList />
     </S.IssueList>
   );
 }
