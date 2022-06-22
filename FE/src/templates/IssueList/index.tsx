@@ -1,87 +1,70 @@
-import { Icon } from '@/components/common/Icon';
-import { Text } from '@/components/common/Text';
-import UNDER_ARROW from '@/assets/UnderArrow.svg';
-import ISSUETRACKER_IMG from '@/assets/LogoIMG.svg';
-
 import * as S from './style';
-import { Badge } from '@/components/common/Badge';
+import { LabelFilterDetail } from '@/components/Label/LabelFilterDetail';
+import { MilestoneFilterDetail } from '@/components/Milestone/MilestoneFilterDetail';
+import { AssigneeFilterDetail } from '@/components/User/AssigneeFilterDetail';
+import { AuthorFilterDetail } from '@/components/User/AuthorFilterDetail';
+import { OpenIssueText } from '@/components/Issue/OpenIssueText';
+import { CloseIssueText } from '@/components/Issue/CloseIssueText';
+import {
+  ListTable,
+  ListTableHeader,
+  ListTableItems,
+} from '@/components/common/ListTable';
+import { IssueItem } from '@/components/Issue/IssueItem';
 
+const mock = {
+  issueTitle: '이슈테스트',
+  issueNumber: 999,
+  issueWriter: 'Dott',
+  timestamp: new Date(),
+  milestone: { title: '마일스톤1' },
+  label: [{ name: '테스트' }],
+  assignee: [
+    {
+      name: 'Dott',
+      profileImage:
+        'https://ca.slack-edge.com/T74H5245A-U02RA7K501L-3c55992367ca-512',
+    },
+  ],
+};
+
+// TODO: 컴포넌트 네이밍 다시 고민
 export function IssueList() {
   return (
-    <S.IssueList>
-      <S.IssueListHeader>
+    <ListTable>
+      <ListTableHeader>
+        {/* TODO: 아래의 item 컴포넌트처럼 분리 후 props 내려주는 식으로 개선 예정 */}
         <S.IssueHeaderLeft>
           <input type="checkbox" />
-          <Text text="열린 이슈(2)" fontWeight="bold" color="titleArchieve" />
-          <Text text="닫힌 이슈(0)" color="label" />
+          <OpenIssueText openIssueCount={1} />
+          <CloseIssueText closeIssueCount={0} />
         </S.IssueHeaderLeft>
         <S.IssueHeaderRight>
-          <S.SortDetail>
-            <summary>
-              <Text text="담당자" fontWeight="bold" color="label" />
-              <Icon iconName={UNDER_ARROW} iconSize="base" />
-            </summary>
-          </S.SortDetail>
-          <S.SortDetail>
-            <summary>
-              <Text text="레이블" fontWeight="bold" color="label" />
-              <Icon iconName={UNDER_ARROW} iconSize="base" />
-            </summary>
-          </S.SortDetail>
-          <S.SortDetail>
-            <summary>
-              <Text text="마일스톤" fontWeight="bold" color="label" />
-              <Icon iconName={UNDER_ARROW} iconSize="base" />
-            </summary>
-          </S.SortDetail>
-          <S.SortDetail>
-            <summary>
-              <Text text="작성자" fontWeight="bold" color="label" />
-              <Icon iconName={UNDER_ARROW} iconSize="base" />
-            </summary>
-          </S.SortDetail>
+          <AuthorFilterDetail
+            userData={[{ name: 'Dott' }, { name: 'ver' }, { name: '선을로' }]}
+          />
+          <LabelFilterDetail labelData={[{ name: '1' }, { name: '2' }]} />
+          <MilestoneFilterDetail
+            milestoneList={['1번 마일스톤', '2번 마일스톤', '3번 마일스톤']}
+          />
+          <AssigneeFilterDetail
+            userData={[{ name: 'Dott' }, { name: 'ver' }, { name: '선을로' }]}
+          />
         </S.IssueHeaderRight>
-      </S.IssueListHeader>
-      <S.IssueItems>
-        <S.Issue>
-          <S.IssueLeft>
-            <input type="checkbox" />
-            <S.IssueInfo>
-              <S.IssueTitle>
-                <Text
-                  text="이슈 제목"
-                  fontSize="large"
-                  fontWeight="bold"
-                  color="titleArchieve"
-                />
-              </S.IssueTitle>
-              <S.IssueDescription>
-                <Text text="#이슈번호" color="label" />
-                <Text text="작성자 및 타임스탬프 정보" color="label" />
-                <Text text="마일스톤" color="label" />
-              </S.IssueDescription>
-            </S.IssueInfo>
-          </S.IssueLeft>
-          <S.IssueRight>
-            <S.IconField>
-              <Badge imgSRC={ISSUETRACKER_IMG} alt="profile image" />
-            </S.IconField>
-            <S.IconField>
-              <Badge imgSRC={ISSUETRACKER_IMG} alt="profile image" />
-            </S.IconField>
-            <S.IconField>
-              <Badge imgSRC={ISSUETRACKER_IMG} alt="profile image" />
-            </S.IconField>
-            <S.IconField>
-              <Badge imgSRC={ISSUETRACKER_IMG} alt="profile image" />
-            </S.IconField>
-            {/* 담당자
-          레이블
-          마일스톤
-          작성자 */}
-          </S.IssueRight>
-        </S.Issue>
-      </S.IssueItems>
-    </S.IssueList>
+      </ListTableHeader>
+
+      <ListTableItems>
+        {/* TODO: mock 하나만 받고 구조분해는 하위 컴포넌트에서 하는 식으로 변경 + map으로 처리 */}
+        <IssueItem
+          issueTitle={mock.issueTitle}
+          issueNumber={mock.issueNumber}
+          issueWriter={mock.issueWriter}
+          timestamp={mock.timestamp}
+          milestone={mock.milestone}
+          label={mock.label}
+          assignee={mock.assignee}
+        />
+      </ListTableItems>
+    </ListTable>
   );
 }

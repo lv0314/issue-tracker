@@ -58,6 +58,7 @@ export const IssueLeft = styled.div`
   display: flex;
   gap: 32px;
 `;
+
 export const IssueRight = styled.div`
   display: flex;
   gap: 24px;
