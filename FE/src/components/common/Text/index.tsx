@@ -4,6 +4,7 @@ type TextProps = {
   text: string | number;
 } & S.TextStyledProps;
 
+// TODO: Text 컴포넌트 조금 더 유연하게
 export function Text({ text, color, fontSize, fontWeight, styles }: TextProps) {
   return (
     <S.Text
