@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		background-color: ${({ theme }) => theme.color.offwhite};
+		background-color: ${({ theme }) => theme.color.background};
 		width: 100vw;
 		height: 100vh;
 		font-family: "Noto Sans KR", sans-serif;
@@ -39,5 +39,13 @@ export const GlobalStyle = createGlobalStyle`
 
 	span {
 		display:block;
+	}
+
+	details > summary {
+  list-style: none;
+	}
+
+	details > summary::-webkit-details-marker {
+		display: none;
 	}
 `;
