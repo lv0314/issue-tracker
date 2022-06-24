@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import team25.issuetracker.domain.OauthRefreshToken;
 
 @Component
 public class JwtTokenProvider {
@@ -63,5 +64,45 @@ public class JwtTokenProvider {
 		} catch (JwtException | IllegalArgumentException e) {
 			return false;
 		}
+	}
+
+	public String validateRefreshToken(OauthRefreshToken refreshTokenObj){
+
+		String refreshToken = refreshTokenObj.getRefreshToken();
+
+		try {
+			// 검증
+			Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(refreshToken);
+
+			//refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성합니다.
+			if (!claims.getBody().getExpiration().before(new Date())) {
+				return recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
+			}
+		}catch (Exception e) {
+
+			//refresh 토큰이 만료되었을 경우, 로그인이 필요합니다.
+			return null;
+
+		}
+
+		return null;
+	}
+
+	public String recreationAccessToken(String userEmail, Object roles){
+
+		Claims claims = Jwts.claims().setSubject(userEmail); // JWT payload 에 저장되는 정보단위
+		claims.put("roles", roles); // 정보는 key / value 쌍으로 저장된다.
+		Date now = new Date();
+
+		//Access Token
+		String accessToken = Jwts.builder()
+			.setClaims(claims) // 정보 저장
+			.setIssuedAt(now) // 토큰 발행 시간 정보
+			.setExpiration(new Date(now.getTime() + accessTokenValidityInMilliseconds)) // set Expire Time
+			.signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과
+			// signature 에 들어갈 secret값 세팅
+			.compact();
+
+		return accessToken;
 	}
 }
