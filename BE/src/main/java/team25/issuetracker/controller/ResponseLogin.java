@@ -1,12 +1,13 @@
-package team25.issuetracker;
+package team25.issuetracker.controller;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team25.issuetracker.Role;
 
 @Getter
 @NoArgsConstructor
-public class LoginResponse {
+public class ResponseLogin {
 	private Long id;
 	private String name;
 	private String email;
@@ -17,7 +18,7 @@ public class LoginResponse {
 	private String refreshToken;
 
 	@Builder
-	public LoginResponse(Long id, String name, String email, String imageUrl, Role role, String tokenType, String accessToken, String refreshToken) {
+	public ResponseLogin(Long id, String name, String email, String imageUrl, Role role, String tokenType, String accessToken, String refreshToken) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
