@@ -2,22 +2,26 @@ package team25.issuetracker.service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import team25.issuetracker.domain.OauthRefreshToken;
 import team25.issuetracker.repository.InMemoryProviderRepository;
 import team25.issuetracker.JwtTokenProvider;
-import team25.issuetracker.LoginResponse;
+import team25.issuetracker.controller.ResponseLogin;
 import team25.issuetracker.domain.Member;
 import team25.issuetracker.repository.MemberRepository;
 import team25.issuetracker.OauthAttributes;
 import team25.issuetracker.OauthProvider;
 import team25.issuetracker.OauthTokenResponse;
 import team25.issuetracker.UserProfile;
+import team25.issuetracker.repository.RefreshTokenRepository;
 
 @Service
 public class OauthService {
@@ -25,16 +29,19 @@ public class OauthService {
 	private final InMemoryProviderRepository inMemoryProviderRepository;
 	private final MemberRepository memberRepository;
 	private final JwtTokenProvider jwtTokenProvider;
+	private final RefreshTokenRepository refreshTokenRepository;
 
 	public OauthService(InMemoryProviderRepository inMemoryProviderRepository,
 		MemberRepository memberRepository,
-		JwtTokenProvider jwtTokenProvider) {
+		JwtTokenProvider jwtTokenProvider,
+		RefreshTokenRepository refreshTokenRepository) {
 		this.inMemoryProviderRepository = inMemoryProviderRepository;
 		this.memberRepository = memberRepository;
 		this.jwtTokenProvider = jwtTokenProvider;
+		this.refreshTokenRepository = refreshTokenRepository;
 	}
 
-	public LoginResponse login(String providerName, String code) {
+	public ResponseLogin login(String providerName, String code) {
 		// 프론트에서 넘어온 provider 이름을 통해 InMemoryProviderRepository에서 OauthProvider 가져오기
 		OauthProvider provider = inMemoryProviderRepository.findByProviderName(providerName);
 
@@ -53,7 +60,14 @@ public class OauthService {
 		// TODO 레디스에 refresh token 추가
 		// redisUtil.setData(String.valueOf(member.getId()), refreshToken);
 
-		return LoginResponse.builder()
+		// refresh token 저장
+		OauthRefreshToken refreshTokenObj = OauthRefreshToken.builder()
+			.refreshToken(refreshToken)
+			.keyEmail(member.getEmail())
+			.build();
+		refreshTokenRepository.save(refreshTokenObj);
+
+		return ResponseLogin.builder()
 			.id(member.getId())
 			.name(member.getName())
 			.email(member.getEmail())
@@ -63,6 +77,37 @@ public class OauthService {
 			.accessToken(accessToken)
 			.refreshToken(refreshToken)
 			.build();
+	}
+
+	public Optional<OauthRefreshToken> getRefreshToken(String refreshToken) {
+
+		return refreshTokenRepository.findByRefreshToken(refreshToken);
+	}
+
+	public Map<String, String> validateRefreshToken(String refreshToken) {
+		OauthRefreshToken refreshToken1 = getRefreshToken(refreshToken).get();
+		String createdAccessToken = jwtTokenProvider.validateRefreshToken(refreshToken1);
+
+		return createRefreshJson(createdAccessToken);
+	}
+
+	public Map<String, String> createRefreshJson(String createdAccessToken) {
+
+		Map<String, String> map = new HashMap<>();
+		if (createdAccessToken == null) {
+			map.put("errortype", "Forbidden");
+			map.put("status", "402");
+			map.put("message", "Refresh 토큰이 만료되었습니다. 로그인이 필요합니다.");
+
+			return map;
+		}
+		//기존에 존재하는 accessToken 제거
+
+		map.put("status", "200");
+		map.put("message", "Refresh 토큰을 통한 Access Token 생성이 완료되었습니다.");
+		map.put("accessToken", createdAccessToken);
+
+		return map;
 	}
 
 	private Member saveOrUpdate(UserProfile userProfile) {
