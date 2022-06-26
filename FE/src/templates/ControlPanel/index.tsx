@@ -1,7 +1,7 @@
 import * as S from './style';
 import UNDER_ARROW from '@/assets/UnderArrow.svg';
 import { Icon } from '@/components/common/Icon';
-import SEARCH_ICON from '@/assets/Search.svg';
+import SEARCH_ICON from '@/assets/Icons/search.svg';
 import { Text } from '@/components/common/Text';
 import { ListModal } from '@/components/common/ListModal';
 import { LabelFitlerItem } from '@/components/Label/LabelFilterItem';
@@ -14,7 +14,7 @@ export function ControlPanel() {
         <S.FilterDetail>
           <summary>
             <Text text="필터" fontWeight="bold" color="placeholder" />
-            <Icon iconName={UNDER_ARROW} iconSize="base" />
+            <UNDER_ARROW />
           </summary>
           <ListModal listTitle="라벨 필터">
             {['3번', '4번', '5번'].map(title => (
@@ -24,7 +24,8 @@ export function ControlPanel() {
         </S.FilterDetail>
 
         <S.FilterForm>
-          <Icon iconName={SEARCH_ICON} iconSize="base" />
+          <SEARCH_ICON />
+          {/* <Icon iconName={SEARCH_ICON} iconSize="base" /> */}
           <S.FilterInput placeholder="Search All Issue" />
         </S.FilterForm>
       </S.FilterBar>

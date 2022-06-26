@@ -13,6 +13,7 @@ const SortDetail = styled.details`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   summary {
     cursor: pointer;
@@ -28,7 +29,7 @@ export function LabelFilterDetail({ labelData }: LabelFilterDetailProps) {
     <SortDetail>
       <summary>
         <Text text="레이블" fontWeight="bold" color="label" />
-        <Icon iconName={UNDER_ARROW} iconSize="base" />
+        <UNDER_ARROW />
       </summary>
       <ListModal listTitle="라벨 필터">
         {labelData.map(({ name, color }) => (

@@ -1,6 +1,7 @@
 import { Badge } from '@/components/common/Badge';
 import * as S from './style';
 import { Text } from '@/components/common/Text';
+import PAPERCLIP_ICON from '@/assets/Icons/paperclip.svg';
 
 export function AddIssueWrite() {
   return (
@@ -15,6 +16,7 @@ export function AddIssueWrite() {
           <S.IssueTextArea placeholder="코멘트를 입력하세요" />
           <S.AttachFile>
             <S.AttachFileLabel>
+              <PAPERCLIP_ICON />
               <input type="file" />
             </S.AttachFileLabel>
             <Text
