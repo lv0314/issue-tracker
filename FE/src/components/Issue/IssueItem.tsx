@@ -24,14 +24,15 @@ type Assignee = {
   profileImage: string;
 };
 
-type IssueItemProps = {
+export type IssueItemProps = {
   issueTitle: string;
   issueNumber: number;
   issueWriter: string;
-  timestamp: Date;
+  timestamp: string;
   milestone?: Milestone;
   label?: Label[];
   assignee?: Assignee[];
+  open?: boolean;
 };
 
 export function IssueItem({
@@ -42,6 +43,7 @@ export function IssueItem({
   milestone,
   label,
   assignee,
+  open,
 }: IssueItemProps) {
   return (
     <IssueItemLayout>

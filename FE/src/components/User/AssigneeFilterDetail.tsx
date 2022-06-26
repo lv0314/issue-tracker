@@ -13,6 +13,7 @@ const SortDetail = styled.details`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   summary {
     cursor: pointer;
@@ -28,7 +29,7 @@ export function AssigneeFilterDetail({ userData }: AssigneeFilterDetailProps) {
     <SortDetail>
       <summary>
         <Text text="담당자" fontWeight="bold" color="label" />
-        <Icon iconName={UNDER_ARROW} iconSize="base" />
+        <UNDER_ARROW />
       </summary>
       <ListModal listTitle="담당자 필터">
         {userData.map(({ name, imgUrl }) => (

@@ -28,6 +28,7 @@ export const FilterDetail = styled.details`
   border-right: 1px solid ${({ theme }) => theme.color.line};
   height: inherit;
   gap: 8px;
+  position: relative;
 
   summary {
     cursor: pointer;

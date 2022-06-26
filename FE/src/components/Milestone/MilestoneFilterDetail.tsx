@@ -13,6 +13,7 @@ const SortDetail = styled.details`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 
   summary {
     cursor: pointer;
@@ -30,7 +31,7 @@ export function MilestoneFilterDetail({
     <SortDetail>
       <summary>
         <Text text="마일스톤" fontWeight="bold" color="label" />
-        <Icon iconName={UNDER_ARROW} iconSize="base" />
+        <UNDER_ARROW />
       </summary>
       <ListModal listTitle="마일스톤 필터">
         {milestoneList.map(milestoneTitle => (
