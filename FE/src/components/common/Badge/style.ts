@@ -16,4 +16,7 @@ export const Badge = styled.figure.attrs<BadgeStyledProps>(
   }),
 )<BadgeStyledProps>`
   cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0px 0px 0px 10px ${theme.color.line} inset;
+  border-radius: 50%;
 `;
