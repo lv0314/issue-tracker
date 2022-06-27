@@ -1,7 +1,21 @@
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import * as S from './style';
+import { assigneeList } from '@/recoil/atoms/addIssueAssigneeList';
 import { Text } from '@/components/common/Text';
 
 export function AddIssueSideBar() {
+  const issueAssigneeList = useRecoilValue(assigneeList);
+  const issueLabelist = useRecoilValue();
+  const issueMilestoneList = useRecoilValue();
+  const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState(null);
+  const [labelDetailSummary, setLabelDetailSummary] = useState(null);
+  const [MilestoneDetailSummary, setMilestoneDeatilSummary] = useState(null);
+
+  const sideBarAssigneeList = issueAssigneeList
+    ? issueAssigneeList.map(listItem => <S.OptionItem>{listItem}</S.OptionItem>)
+    : null;
+
   return (
     <S.OptionSideBar>
       <S.OptionDetail>
@@ -11,12 +25,7 @@ export function AddIssueSideBar() {
         </summary>
         <S.OptionMenu>
           <S.OptionHeader>담당자 추가</S.OptionHeader>
-          <S.OptionList>
-            <S.OptionItem>테스트</S.OptionItem>
-            <S.OptionItem>테스트</S.OptionItem>
-            <S.OptionItem>테스트</S.OptionItem>
-            <S.OptionItem>테스트</S.OptionItem>
-          </S.OptionList>
+          <S.OptionList>{sideBarAssigneeList}</S.OptionList>
         </S.OptionMenu>
       </S.OptionDetail>
       <S.OptionDetail>
