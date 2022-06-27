@@ -1,32 +1,16 @@
-import styled from 'styled-components';
-import { Icon } from '../common/Icon';
 import { Text } from '../common/Text';
 import UNDER_ARROW from '@/assets/UnderArrow.svg';
 import { ListModal } from '../common/ListModal';
 import { AssigneeFilterItem } from './AssigneeFilterItem';
+import { SortDetails } from '../common/SortDetails';
 
 type AssigneeFilterDetailProps = {
   userData: { name: string; imgUrl?: string }[];
 };
 
-const SortDetail = styled.details`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-
-  summary {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    min-width: 80px;
-  }
-`;
-
 export function AssigneeFilterDetail({ userData }: AssigneeFilterDetailProps) {
   return (
-    <SortDetail>
+    <SortDetails>
       <summary>
         <Text text="담당자" fontWeight="bold" color="label" />
         <UNDER_ARROW />
@@ -36,6 +20,6 @@ export function AssigneeFilterDetail({ userData }: AssigneeFilterDetailProps) {
           <AssigneeFilterItem name={name} key={`${name}${Date.now()}`} />
         ))}
       </ListModal>
-    </SortDetail>
+    </SortDetails>
   );
 }
