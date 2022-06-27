@@ -3,17 +3,20 @@ import { useRecoilValue } from 'recoil';
 import * as S from './style';
 import { assigneeList } from '@/recoil/atoms/addIssueAssigneeList';
 import { Text } from '@/components/common/Text';
+import { AssigneeListItem } from '@/components/User/AssigneeListItem';
 
 export function AddIssueSideBar() {
   const issueAssigneeList = useRecoilValue(assigneeList);
-  const issueLabelist = useRecoilValue();
-  const issueMilestoneList = useRecoilValue();
-  const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState(null);
-  const [labelDetailSummary, setLabelDetailSummary] = useState(null);
-  const [MilestoneDetailSummary, setMilestoneDeatilSummary] = useState(null);
+  // const issueLabelist = useRecoilValue();
+  // const issueMilestoneList = useRecoilValue();
+  // const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState(null);
+  // const [labelDetailSummary, setLabelDetailSummary] = useState(null);
+  // const [MilestoneDetailSummary, setMilestoneDeatilSummary] = useState(null);
 
   const sideBarAssigneeList = issueAssigneeList
-    ? issueAssigneeList.map(listItem => <S.OptionItem>{listItem}</S.OptionItem>)
+    ? issueAssigneeList.map(({ name, profileImage }) => (
+        <AssigneeListItem assignee={name} assigneeProfileImg={profileImage} />
+      ))
     : null;
 
   return (
