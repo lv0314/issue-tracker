@@ -5,23 +5,18 @@ import { LabelFilterDetail } from '@/components/Label/LabelFilterDetail';
 import { MilestoneFilterDetail } from '@/components/Milestone/MilestoneFilterDetail';
 import { AssigneeFilterDetail } from '@/components/User/AssigneeFilterDetail';
 import { AuthorFilterDetail } from '@/components/User/AuthorFilterDetail';
-import { OpenIssueText } from '@/components/Issue/OpenIssueText';
-import { CloseIssueText } from '@/components/Issue/CloseIssueText';
 import {
   ListTable,
   ListTableHeader,
   ListTableItems,
 } from '@/components/common/ListTable';
 import { IssueItem, IssueItemProps } from '@/components/Issue/IssueItem';
+import { CheckWhetherOpen } from '@/components/Issue/CheckWhetherOpen';
 
 // TODO: service 디렉토리로 분리
 type filterBooleanCountProps = {
   (array: [], target: string, boolean: boolean): number;
 };
-
-type Override<T1, T2> = Omit<T1, keyof T2> & T2;
-
-type UserIssueProps = Override<IssueItemProps, { timestamp: Date }>;
 
 const filterBooleanCount: filterBooleanCountProps = (
   array,
@@ -32,6 +27,10 @@ const filterBooleanCount: filterBooleanCountProps = (
 
   return count.length;
 };
+
+type Override<T1, T2> = Omit<T1, keyof T2> & T2;
+
+type UserIssueProps = Override<IssueItemProps, { timestamp: Date }>;
 
 const getDiffrentMinutes = (timestamp: string): number => {
   const now = new Date();
@@ -56,31 +55,29 @@ const getTrimmedMessage = (minutes: number): string => {
   return `${Math.floor(minutes / 1440)}일`;
 };
 
-// TODO: 컴포넌트 네이밍 다시 고민
 export function IssueList() {
   const userIssueData = useRecoilValue(getIssue);
 
   return (
     <ListTable>
       <ListTableHeader>
-        <S.IssueHeaderLeft>
+        <S.IssueHeaderCheckOpen>
           <input type="checkbox" />
-          <OpenIssueText
+          <CheckWhetherOpen
             openIssueCount={filterBooleanCount(
               userIssueData.issues,
               'open',
               true,
             )}
-          />
-          <CloseIssueText
             closeIssueCount={filterBooleanCount(
               userIssueData.issues,
               'open',
               false,
             )}
           />
-        </S.IssueHeaderLeft>
-        <S.IssueHeaderRight>
+        </S.IssueHeaderCheckOpen>
+
+        <S.IssueHeaderFilters>
           <AuthorFilterDetail
             userData={[{ name: 'Dott' }, { name: 'ver' }, { name: '선을로' }]}
           />
@@ -91,7 +88,7 @@ export function IssueList() {
           <AssigneeFilterDetail
             userData={[{ name: 'Dott' }, { name: 'ver' }, { name: '선을로' }]}
           />
-        </S.IssueHeaderRight>
+        </S.IssueHeaderFilters>
       </ListTableHeader>
 
       <ListTableItems>
