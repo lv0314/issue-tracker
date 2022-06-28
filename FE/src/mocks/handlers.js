@@ -50,10 +50,64 @@ const issues = {
         {
           name: '선을로',
           profileImage:
-            'https://ca.slack-edge.com/T74H5245A-U02RS3WKUMQ-e300c83654fb-72',
+            'https://ca.slack-edge.com/T74H5245A-U02RS3WKUMQ-e300c83654fb-512',
         },
       ],
       open: true,
+    },
+    {
+      issueTitle: '닫힌 이슈',
+      issueNumber: 4,
+      issueWriter: 'ver',
+      timestamp: new Date(2022, 5, 28, 12),
+      milestone: {
+        title: '장마',
+        description: '비가 온다',
+        dueDate: '2022-07-10',
+      },
+      label: [
+        {
+          name: 'test',
+          description: '기능 테스트',
+          color: '#6E7191',
+          textColor: 'offwhite',
+        },
+      ],
+      assignee: [
+        {
+          name: 'ver',
+          profileImage:
+            'https://ca.slack-edge.com/T74H5245A-U02RZEM30AX-d54a4bce1cd4-512',
+        },
+      ],
+      open: false,
+    },
+    {
+      issueTitle: '매워서 실패',
+      issueNumber: 5,
+      issueWriter: 'Dott',
+      timestamp: new Date(2022, 5, 28, 15),
+      milestone: {
+        title: '매운 음식 먹기',
+        description: '도트의 도전',
+        dueDate: '2022-07-10',
+      },
+      label: [
+        {
+          name: 'test',
+          description: '기능 테스트',
+          color: '#6E7191',
+          textColor: 'offwhite',
+        },
+      ],
+      assignee: [
+        {
+          name: 'Dott',
+          profileImage:
+            'https://ca.slack-edge.com/T74H5245A-U02RA7K501L-3c55992367ca-512',
+        },
+      ],
+      open: false,
     },
   ],
 };
@@ -83,6 +137,12 @@ const handlers = [
             name: 'feat',
             description: '새로운 기능 개발',
             color: '#FF3830',
+            textColor: 'offwhite',
+          },
+          {
+            name: 'test',
+            description: '기능 테스트',
+            color: '#6E7191',
             textColor: 'offwhite',
           },
         ],
@@ -117,6 +177,11 @@ const handlers = [
           {
             title: '장마',
             description: '비가 온다',
+            dueDate: '2022-07-10',
+          },
+          {
+            title: '매운 음식 먹기',
+            description: '도트의 도전',
             dueDate: '2022-07-10',
           },
         ],
