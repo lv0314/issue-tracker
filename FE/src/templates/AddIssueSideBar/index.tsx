@@ -9,6 +9,10 @@ import { ListModal } from '@/components/common/ListModal';
 import { AssigneeListItem } from '@/components/User/AssigneeListItem';
 import { LabelListItem } from '@/components/Label/LabelListItem';
 import { MilestoneSideBarDetailListItem } from '@/components/Milestone/MilestoneSideBarDetailListItem';
+import { SideBarAssigneeItem } from '@/components/User/SideBarAssigneeItem';
+import PLUS_IMOG from '@/assets/Icons/plus.svg';
+
+type AssigneeHandler = React.MouseEvent<HTMLElement>;
 
 export function AddIssueSideBar() {
   const assigneeData = useRecoilValue(assigneeList);
@@ -18,11 +22,47 @@ export function AddIssueSideBar() {
   // const issueMilestoneList = useRecoilValue();
   // const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState(null);
   // const [labelDetailSummary, setLabelDetailSummary] = useState(null);
+  const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState<
+    {
+      name: string;
+      profileImage: string;
+    }[]
+  >([]);
+  // const [labelDetailSummary, setLabelDetailSummary] = useState();
   // const [MilestoneDetailSummary, setMilestoneDeatilSummary] = useState(null);
+
+  const handleAssigneeDetails = (e: AssigneeHandler) => {
+    const clickedAssigneeName = (e.currentTarget as HTMLElement).dataset.id;
+
+    if (assigneeDetailSummary.find(data => data.name === clickedAssigneeName)) {
+      const newAssigneeDetailSummary = assigneeDetailSummary.filter(
+        assignee => assignee.name !== clickedAssigneeName,
+      );
+
+      setAssigneeDeatilSummary(newAssigneeDetailSummary);
+      return;
+    }
+    const targetAssignee = assigneeData.find(
+      data => data.name === clickedAssigneeName,
+    );
+
+    if (!targetAssignee) {
+      return;
+    }
+
+    const newAssigneeDetailSummary = [...assigneeDetailSummary, targetAssignee];
+
+    setAssigneeDeatilSummary(newAssigneeDetailSummary);
+  };
 
   const sideBarAssigneeList = assigneeData
     ? assigneeData.map(({ name, profileImage }) => (
-        <AssigneeListItem assignee={name} assigneeProfileImg={profileImage} />
+        <AssigneeListItem
+          assignee={name}
+          assigneeProfileImg={profileImage}
+          onClick={handleAssigneeDetails}
+          userId={name}
+        />
       ))
     : null;
 
@@ -38,12 +78,20 @@ export function AddIssueSideBar() {
       ))
     : null;
 
+  const sideBarAssigneeSummaryList = assigneeDetailSummary
+    ? assigneeDetailSummary.map(({ name, profileImage }) => (
+        <SideBarAssigneeItem name={name} profileImage={profileImage} />
+      ))
+    : null;
   return (
     <S.OptionSideBar>
       <S.OptionDetail>
         <summary>
-          <Text text="담당자" />
-          <Text text="아이콘" />
+          <S.titleSummary>
+            <Text text="담당자" />
+            <PLUS_IMOG />
+          </S.titleSummary>
+          <ul>{sideBarAssigneeSummaryList}</ul>
         </summary>
         <ListModal listTitle="담당자 추가" rightGap="10%">
           {sideBarAssigneeList}
