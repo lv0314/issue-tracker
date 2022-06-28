@@ -8,7 +8,14 @@ const issues = {
       issueWriter: 'Dott',
       timestamp: new Date(2022, 5, 23, 21, 30),
       milestone: { title: 'feat' },
-      label: [{ name: '테스트' }],
+      label: [
+        {
+          name: 'test',
+          description: '기능 테스트',
+          color: '#6E7191',
+          textColor: 'offwhite',
+        },
+      ],
       assignee: [
         {
           name: 'Dott',
@@ -24,7 +31,20 @@ const issues = {
       issueWriter: 'ver',
       timestamp: new Date(2022, 5, 23, 22),
       milestone: null,
-      label: [{ name: 'fe' }],
+      label: [
+        {
+          name: 'FE',
+          description: '프론트엔드 이슈',
+          color: '#004D23',
+          textColor: 'offwhite',
+        },
+        {
+          name: 'test',
+          description: '기능 테스트',
+          color: '#6E7191',
+          textColor: 'offwhite',
+        },
+      ],
       assignee: [
         {
           name: 'dott',
@@ -45,7 +65,14 @@ const issues = {
       issueWriter: '선을로',
       timestamp: new Date(2022, 5, 22),
       milestone: { title: 'be' },
-      label: [{ name: '선을로' }],
+      label: [
+        {
+          name: 'BE',
+          description: '백엔드 이슈',
+          color: '#34C759',
+          textColor: 'offwhite',
+        },
+      ],
       assignee: [
         {
           name: '선을로',
@@ -83,7 +110,7 @@ const issues = {
       open: false,
     },
     {
-      issueTitle: '매워서 실패',
+      issueTitle: '너무 매워서 실패',
       issueNumber: 5,
       issueWriter: 'Dott',
       timestamp: new Date(2022, 5, 28, 15),
@@ -94,9 +121,9 @@ const issues = {
       },
       label: [
         {
-          name: 'test',
-          description: '기능 테스트',
-          color: '#6E7191',
+          name: 'feat',
+          description: '새로운 기능 개발',
+          color: '#FF3830',
           textColor: 'offwhite',
         },
       ],
@@ -183,6 +210,54 @@ const handlers = [
             title: '매운 음식 먹기',
             description: '도트의 도전',
             dueDate: '2022-07-10',
+          },
+        ],
+      }),
+    );
+  }),
+  rest.get('/assignees', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        assignees: [
+          {
+            name: 'dott',
+            profileImage:
+              'https://ca.slack-edge.com/T74H5245A-U02RA7K501L-3c55992367ca-512',
+          },
+          {
+            name: 'ver',
+            profileImage:
+              'https://ca.slack-edge.com/T74H5245A-U02RZEM30AX-d54a4bce1cd4-512',
+          },
+          {
+            name: '선을로',
+            profileImage:
+              'https://ca.slack-edge.com/T74H5245A-U02RS3WKUMQ-e300c83654fb-512',
+          },
+        ],
+      }),
+    );
+  }),
+  rest.get('/authors', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        authors: [
+          {
+            name: 'dott',
+            profileImage:
+              'https://ca.slack-edge.com/T74H5245A-U02RA7K501L-3c55992367ca-512',
+          },
+          {
+            name: 'ver',
+            profileImage:
+              'https://ca.slack-edge.com/T74H5245A-U02RZEM30AX-d54a4bce1cd4-512',
+          },
+          {
+            name: '선을로',
+            profileImage:
+              'https://ca.slack-edge.com/T74H5245A-U02RS3WKUMQ-e300c83654fb-512',
           },
         ],
       }),
