@@ -7,7 +7,7 @@ import team25.issuetracker.Role;
 
 @Getter
 @NoArgsConstructor
-public class ResponseLogin {
+public class LoginResponse {
 	private Long id;
 	private String name;
 	private String email;
@@ -18,7 +18,7 @@ public class ResponseLogin {
 	private String refreshToken;
 
 	@Builder
-	public ResponseLogin(Long id, String name, String email, String imageUrl, Role role, String tokenType, String accessToken, String refreshToken) {
+	public LoginResponse(Long id, String name, String email, String imageUrl, Role role, String tokenType, String accessToken, String refreshToken) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
