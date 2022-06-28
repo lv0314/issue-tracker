@@ -11,7 +11,7 @@ export const IssueItemLayout = styled.li`
 
 type Label = {
   name: string;
-  color?: string;
+  color: string;
   textColor?: string;
 };
 
@@ -29,8 +29,8 @@ export type IssueItemProps = {
   issueNumber: number;
   issueWriter: string;
   timestamp: string;
-  milestone?: Milestone;
-  label?: Label[];
+  milestone: Milestone;
+  label: Label[];
   assignee?: Assignee[];
   open?: boolean;
 };

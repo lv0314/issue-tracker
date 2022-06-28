@@ -1,11 +1,11 @@
 import { Text } from '../common/Text';
 import UNDER_ARROW from '@/assets/UnderArrow.svg';
 import { ListModal } from '../common/ListModal';
-import { AssigneeFilterItem } from './AssigneeFilterItem';
 import { SortDetails } from '../common/SortDetails';
+import { AssigneeListItem } from './AssigneeListItem';
 
 type AssigneeFilterDetailProps = {
-  userData: { name: string; imgUrl?: string }[];
+  userData: { name: string; profileImage: string }[];
 };
 
 export function AssigneeFilterDetail({ userData }: AssigneeFilterDetailProps) {
@@ -16,8 +16,12 @@ export function AssigneeFilterDetail({ userData }: AssigneeFilterDetailProps) {
         <UNDER_ARROW />
       </summary>
       <ListModal listTitle="담당자 필터">
-        {userData.map(({ name, imgUrl }) => (
-          <AssigneeFilterItem name={name} key={`${name}${Date.now()}`} />
+        {userData.map(({ name, profileImage }) => (
+          <AssigneeListItem
+            assignee={name}
+            assigneeProfileImg={profileImage}
+            key={`${name}${Date.now()}`}
+          />
         ))}
       </ListModal>
     </SortDetails>

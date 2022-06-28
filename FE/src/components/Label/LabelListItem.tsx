@@ -12,6 +12,8 @@ const StyledListItem = styled.li`
   gap: 8px;
   align-items: center;
   padding: 12px 16px;
+  justify-content: space-between;
+  border-top: 1px solid ${({ theme }) => theme.color.line};
 `;
 
 const LabelColorBadge = styled.div`

@@ -1,11 +1,15 @@
 import { Text } from '../common/Text';
 import UNDER_ARROW from '@/assets/UnderArrow.svg';
 import { ListModal } from '../common/ListModal';
-import { MilestoneFilterItem } from './MilestoneFilterItem';
 import { SortDetails } from '../common/SortDetails';
+import { MilestoneSideBarDetailListItem } from './MilestoneSideBarDetailListItem';
 
 type MilestoneFilterDetailFilterDetailProps = {
-  milestoneList: string[];
+  milestoneList: {
+    title: string;
+    description: string;
+    dueDate: string;
+  }[];
 };
 
 export function MilestoneFilterDetail({
@@ -18,10 +22,10 @@ export function MilestoneFilterDetail({
         <UNDER_ARROW />
       </summary>
       <ListModal listTitle="마일스톤 필터">
-        {milestoneList.map(milestoneTitle => (
-          <MilestoneFilterItem
-            milestoneTitle={milestoneTitle}
-            key={`${milestoneTitle}${Date.now()}`}
+        {milestoneList.map(({ title }) => (
+          <MilestoneSideBarDetailListItem
+            title={title}
+            key={`${title}${Date.now()}`}
           />
         ))}
       </ListModal>

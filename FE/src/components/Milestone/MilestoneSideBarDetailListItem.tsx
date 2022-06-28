@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { useRecoilValue } from 'recoil';
 import { Text } from '@/components/common/Text';
 import CHECK_OFF_CIRCLE from '@/assets/Icons/checkOffCircle.svg';
 
 type MilestoneSideBarDetailListItemProps = {
-  name: string;
+  title: string;
 };
 
 const StyledListItem = styled.li`
@@ -12,13 +11,14 @@ const StyledListItem = styled.li`
   gap: 8px;
   align-items: center;
   padding: 12px 16px;
+  border-top: 1px solid ${({ theme }) => theme.color.line};
 `;
 export function MilestoneSideBarDetailListItem({
-  name,
+  title,
 }: MilestoneSideBarDetailListItemProps) {
   return (
     <StyledListItem>
-      <Text text={name} styles="width: 150px" />
+      <Text text={title} styles="width: 150px" />
       <CHECK_OFF_CIRCLE />
     </StyledListItem>
   );

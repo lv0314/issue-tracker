@@ -6,8 +6,8 @@ import CHECK_OFF_CIRCLE from '@/assets/Icons/checkOffCircle.svg';
 type AssigneeListItemProps = {
   assignee: string;
   assigneeProfileImg: string;
-  onClick(e: React.MouseEvent<HTMLElement>): void;
-  userId: string;
+  onClick?(e: React.MouseEvent<HTMLElement>): void;
+  userId?: string;
 };
 
 const StyledListItem = styled.li`
