@@ -5,18 +5,25 @@ export const OptionSideBar = styled.div`
   border: 1px solid ${({ theme }) => theme.color.line};
   border-radius: 16px;
   height: fit-content;
-  overflow: hidden;
 
-  & :last-child {
+  & > :last-child {
     border-bottom: none;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+  }
+
+  & > :first-child {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
   }
 `;
 
 export const OptionDetail = styled.details`
-  position: relative;
   background-color: ${({ theme }) => theme.color.offwhite};
   border-bottom: 1px solid ${({ theme }) => theme.color.line};
+
   cursor: pointer;
+  position: relative;
 
   summary {
     display: flex;
@@ -32,7 +39,7 @@ export const OptionMenu = styled.div`
   top: 70%;
   right: 10%;
   position: absolute;
-  z-index: 2;
+  z-index: 100;
   width: 240px;
   border-radius: 16px;
   border: 1px solid ${({ theme }) => theme.color.line};

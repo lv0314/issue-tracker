@@ -25,9 +25,9 @@ export function AssigneeListItem({
       <Badge
         imgSRC={assigneeProfileImg}
         alt={`${assignee}프로필`}
-        styles="small"
+        badgeSize="small"
       />
-      <Text text={assignee} styles="width: 150px" />
+      <Text text={assignee} styles="width: 100px" />
       <CHECK_OFF_CIRCLE />
     </StyledListItem>
   );
