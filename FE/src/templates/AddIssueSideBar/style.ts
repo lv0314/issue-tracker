@@ -27,12 +27,25 @@ export const OptionDetail = styled.details`
 
   summary {
     display: flex;
-    justify-content: space-between;
-    width: inherit;
-    height: inherit;
-    padding: 34px 32px;
-    box-sizing: border-box;
+    flex-direction: column;
+
+    & > :first-child {
+      padding-top: 18px;
+    }
+
+    & > :last-child {
+      padding-bottom: 18px;
+    }
   }
+`;
+
+export const titleSummary = styled.h4`
+  display: flex;
+  justify-content: space-between;
+  width: inherit;
+  height: inherit;
+  padding: 34px 32px;
+  box-sizing: border-box;
 `;
 
 export const OptionMenu = styled.div`

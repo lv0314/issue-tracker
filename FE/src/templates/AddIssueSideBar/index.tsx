@@ -7,6 +7,7 @@ import { Text } from '@/components/common/Text';
 import { ListModal } from '@/components/common/ListModal';
 import { AssigneeListItem } from '@/components/User/AssigneeListItem';
 import { LabelListItem } from '@/components/Label/LabelListItem';
+import { SideBarAssigneeItem } from '@/components/User/SideBarAssigneeItem';
 
 type AssigneeHandler = React.MouseEvent<HTMLElement>;
 
@@ -19,16 +20,20 @@ export function AddIssueSideBar() {
       profileImage: string;
     }[]
   >([]);
-  const [labelDetailSummary, setLabelDetailSummary] = useState();
+  // const [labelDetailSummary, setLabelDetailSummary] = useState();
   // const [MilestoneDetailSummary, setMilestoneDeatilSummary] = useState(null);
 
   const handleAssigneeDetails = (e: AssigneeHandler) => {
     const clickedAssigneeName = (e.currentTarget as HTMLElement).dataset.id;
 
     if (assigneeDetailSummary.find(data => data.name === clickedAssigneeName)) {
+      const newAssigneeDetailSummary = assigneeDetailSummary.filter(
+        assignee => assignee.name !== clickedAssigneeName,
+      );
+
+      setAssigneeDeatilSummary(newAssigneeDetailSummary);
       return;
     }
-
     const targetAssignee = assigneeData.find(
       data => data.name === clickedAssigneeName,
     );
@@ -37,9 +42,9 @@ export function AddIssueSideBar() {
       return;
     }
 
-    assigneeDetailSummary.push(targetAssignee);
+    const newAssigneeDetailSummary = [...assigneeDetailSummary, targetAssignee];
 
-    setAssigneeDeatilSummary(assigneeDetailSummary);
+    setAssigneeDeatilSummary(newAssigneeDetailSummary);
   };
 
   const sideBarAssigneeList = assigneeData
@@ -59,12 +64,20 @@ export function AddIssueSideBar() {
       ))
     : null;
 
+  const sideBarAssigneeSummaryList = assigneeDetailSummary
+    ? assigneeDetailSummary.map(({ name, profileImage }) => (
+        <SideBarAssigneeItem name={name} profileImage={profileImage} />
+      ))
+    : null;
   return (
     <S.OptionSideBar>
       <S.OptionDetail>
         <summary>
-          <Text text="담당자" />
-          <Text text="아이콘" />
+          <S.titleSummary>
+            <Text text="담당자" />
+            <Text text="아이콘" />
+          </S.titleSummary>
+          <ul>{sideBarAssigneeSummaryList}</ul>
         </summary>
         <ListModal listTitle="담당자 추가">{sideBarAssigneeList}</ListModal>
       </S.OptionDetail>
