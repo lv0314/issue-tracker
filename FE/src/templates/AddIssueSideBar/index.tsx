@@ -74,7 +74,7 @@ export function AddIssueSideBar() {
 
   const sideBarMilestoneList = milestoneData
     ? milestoneData.map(({ title }) => (
-        <MilestoneSideBarDetailListItem name={title} />
+        <MilestoneSideBarDetailListItem title={title} />
       ))
     : null;
 

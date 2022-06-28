@@ -12,6 +12,10 @@ import {
 } from '@/components/common/ListTable';
 import { IssueItem, IssueItemProps } from '@/components/Issue/IssueItem';
 import { CheckWhetherOpen } from '@/components/Issue/CheckWhetherOpen';
+import { getLabels } from '@/recoil/selectors/getLabels';
+import { getMilestones } from '@/recoil/selectors/getMilestones';
+import { getAssginees } from '@/recoil/selectors/getAssignees';
+import { getIssueOpen } from '@/recoil/selectors/getIssueOpen';
 
 // TODO: service 디렉토리로 분리
 type filterBooleanCountProps = {
@@ -56,7 +60,27 @@ const getTrimmedMessage = (minutes: number): string => {
 };
 
 export function IssueList() {
-  const userIssueData = useRecoilValue(getIssue);
+  const { issues } = useRecoilValue(getIssue);
+  const { labels } = useRecoilValue(getLabels);
+  const { milestones } = useRecoilValue(getMilestones);
+  const { assignees } = useRecoilValue(getAssginees);
+  const openState = useRecoilValue(getIssueOpen);
+
+  const filteredIssueItems = issues.map(
+    (issue: IssueItemProps) =>
+      issue.open === openState && (
+        <IssueItem
+          issueTitle={issue.issueTitle}
+          issueNumber={issue.issueNumber}
+          issueWriter={issue.issueWriter}
+          timestamp={getTrimmedMessage(getDiffrentMinutes(issue.timestamp))}
+          milestone={issue.milestone}
+          label={issue.label}
+          assignee={issue.assignee}
+          key={`${issue.issueTitle}${Date.now()}`}
+        />
+      ),
+  );
 
   return (
     <ListTable>
@@ -64,52 +88,21 @@ export function IssueList() {
         <S.IssueHeaderCheckOpen>
           <input type="checkbox" />
           <CheckWhetherOpen
-            openIssueCount={filterBooleanCount(
-              userIssueData.issues,
-              'open',
-              true,
-            )}
-            closeIssueCount={filterBooleanCount(
-              userIssueData.issues,
-              'open',
-              false,
-            )}
+            openIssueCount={filterBooleanCount(issues, 'open', true)}
+            closeIssueCount={filterBooleanCount(issues, 'open', false)}
           />
         </S.IssueHeaderCheckOpen>
 
+        {/* TODO: 템플릿으로 분리 */}
         <S.IssueHeaderFilters>
-          <AuthorFilterDetail
-            userData={[{ name: 'Dott' }, { name: 'ver' }, { name: '선을로' }]}
-          />
-          <LabelFilterDetail labelData={[{ name: '1' }, { name: '2' }]} />
-          <MilestoneFilterDetail
-            milestoneList={['1번 마일스톤', '2번 마일스톤', '3번 마일스톤']}
-          />
-          <AssigneeFilterDetail
-            userData={[{ name: 'Dott' }, { name: 'ver' }, { name: '선을로' }]}
-          />
+          <AuthorFilterDetail userData={assignees} />
+          <LabelFilterDetail labelData={labels} />
+          <MilestoneFilterDetail milestoneList={milestones} />
+          <AssigneeFilterDetail userData={assignees} />
         </S.IssueHeaderFilters>
       </ListTableHeader>
 
-      <ListTableItems>
-        {userIssueData.issues.map(
-          (issue: IssueItemProps) =>
-            issue.open && (
-              <IssueItem
-                issueTitle={issue.issueTitle}
-                issueNumber={issue.issueNumber}
-                issueWriter={issue.issueWriter}
-                timestamp={getTrimmedMessage(
-                  getDiffrentMinutes(issue.timestamp),
-                )}
-                milestone={issue.milestone}
-                label={issue.label}
-                assignee={issue.assignee}
-                key={`${issue.issueTitle}${Date.now()}`}
-              />
-            ),
-        )}
-      </ListTableItems>
+      <ListTableItems>{filteredIssueItems}</ListTableItems>
     </ListTable>
   );
 }

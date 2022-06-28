@@ -6,7 +6,6 @@ import { Header } from '@/templates/Header';
 import { NavigationTab } from '@/templates/NavigationTab';
 import * as S from './style';
 import { IssueList } from '@/templates/IssueList';
-import { ClosedIssueList } from '@/templates/ClosedIssueList';
 
 const Test = styled.div`
   display: flex;
@@ -23,7 +22,7 @@ export function IssueListPage() {
         </Test>
         <Routes>
           <Route path="/open" element={<IssueList />} />
-          <Route path="/close" element={<ClosedIssueList />} />
+          <Route path="/close" element={<IssueList />} />
         </Routes>
       </Suspense>
     </S.IssueList>
