@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { ListModalProps } from './index';
 
-export const ListModal = styled.div`
+export const ListModal = styled.div<Partial<ListModalProps>>`
   min-width: 240px;
   display: flex;
   flex-direction: column;
@@ -10,8 +11,9 @@ export const ListModal = styled.div`
   background-color: ${({ theme }) => theme.color.offwhite};
   position: absolute;
   top: 70%;
-  right: 0;
+  right: ${({ rightGap = '0px' }) => rightGap};
   margin-top: 8px;
+  z-index: 3;
 `;
 
 export const ListTitle = styled.div`

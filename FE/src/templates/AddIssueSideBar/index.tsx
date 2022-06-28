@@ -3,14 +3,17 @@ import { useRecoilValue } from 'recoil';
 import * as S from './style';
 import { assigneeList } from '@/recoil/atoms/assigneeData';
 import { labelData as LabelData } from '@/recoil/atoms/LabelData';
+import { milestoneData as MilestoneData } from '@/recoil/atoms/MilestoneData';
 import { Text } from '@/components/common/Text';
 import { ListModal } from '@/components/common/ListModal';
 import { AssigneeListItem } from '@/components/User/AssigneeListItem';
 import { LabelListItem } from '@/components/Label/LabelListItem';
+import { MilestoneSideBarDetailListItem } from '@/components/Milestone/MilestoneSideBarDetailListItem';
 
 export function AddIssueSideBar() {
   const assigneeData = useRecoilValue(assigneeList);
   const labelData = useRecoilValue(LabelData);
+  const milestoneData = useRecoilValue(MilestoneData);
   // const issueLabelist = useRecoilValue();
   // const issueMilestoneList = useRecoilValue();
   // const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState(null);
@@ -29,6 +32,12 @@ export function AddIssueSideBar() {
       ))
     : null;
 
+  const sideBarMilestoneList = milestoneData
+    ? milestoneData.map(({ title }) => (
+        <MilestoneSideBarDetailListItem name={title} />
+      ))
+    : null;
+
   return (
     <S.OptionSideBar>
       <S.OptionDetail>
@@ -36,7 +45,9 @@ export function AddIssueSideBar() {
           <Text text="담당자" />
           <Text text="아이콘" />
         </summary>
-        <ListModal listTitle="담당자 추가">{sideBarAssigneeList}</ListModal>
+        <ListModal listTitle="담당자 추가" rightGap="10%">
+          {sideBarAssigneeList}
+        </ListModal>
       </S.OptionDetail>
 
       <S.OptionDetail>
@@ -44,7 +55,9 @@ export function AddIssueSideBar() {
           <Text text="레이블" />
           <Text text="아이콘" />
         </summary>
-        <ListModal listTitle="라벨 추가">{sideBarLabelList}</ListModal>
+        <ListModal listTitle="라벨 추가" rightGap="10%">
+          {sideBarLabelList}
+        </ListModal>
       </S.OptionDetail>
 
       <S.OptionDetail>
@@ -52,6 +65,9 @@ export function AddIssueSideBar() {
           <Text text="마일스톤" />
           <Text text="아이콘" />
         </summary>
+        <ListModal listTitle="마일스톤 추가" rightGap="10%">
+          {sideBarMilestoneList}
+        </ListModal>
       </S.OptionDetail>
     </S.OptionSideBar>
   );
