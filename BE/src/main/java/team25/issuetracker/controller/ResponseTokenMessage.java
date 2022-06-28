@@ -1,21 +1,27 @@
 package team25.issuetracker.controller;
 
-import java.util.Map;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 
+@Getter
+@NoArgsConstructor
 public class ResponseTokenMessage {
 
 	private String accessToken;
 	private String refreshToken;
-	private String errorType;
+	private HttpStatus errorType;
+	private HttpStatus status;
 	private String message;
-	private String status;
 
-	public ResponseTokenMessage(Map<String, String> map) {
-		this.accessToken = map.get("accessToken");
-		this.refreshToken = map.get("refreshToken");
-		this.errorType = map.get("errorType");
-		this.message = map.get("message");
-		this.status = map.get("status");
+	@Builder
+	public ResponseTokenMessage(String accessToken, String refreshToken,
+		HttpStatus errorType, HttpStatus status, String message) {
+		this.accessToken = accessToken;
+		this.refreshToken = refreshToken;
+		this.errorType = errorType;
+		this.status = status;
+		this.message = message;
 	}
-
 }
