@@ -8,6 +8,7 @@ import { ListModal } from '@/components/common/ListModal';
 import { AssigneeListItem } from '@/components/User/AssigneeListItem';
 import { LabelListItem } from '@/components/Label/LabelListItem';
 import { SideBarAssigneeItem } from '@/components/User/SideBarAssigneeItem';
+import PLUS_IMOG from '@/assets/Icons/plus.svg';
 
 type AssigneeHandler = React.MouseEvent<HTMLElement>;
 
@@ -75,7 +76,7 @@ export function AddIssueSideBar() {
         <summary>
           <S.titleSummary>
             <Text text="담당자" />
-            <Text text="아이콘" />
+            <PLUS_IMOG />
           </S.titleSummary>
           <ul>{sideBarAssigneeSummaryList}</ul>
         </summary>
