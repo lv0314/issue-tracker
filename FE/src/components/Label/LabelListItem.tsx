@@ -14,7 +14,7 @@ const StyledListItem = styled.li`
   padding: 12px 16px;
 `;
 
-const LabelColorBadge = styled.circle`
+const LabelColorBadge = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -25,7 +25,7 @@ export function LabelListItem({ color, name }: LabelListItemProps) {
   return (
     <StyledListItem>
       <LabelColorBadge color={color} />
-      <Text text={name} />
+      <Text text={name} styles="width: 100px" />
       <CHECK_OFF_CIRCLE />
     </StyledListItem>
   );
