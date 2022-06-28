@@ -12,6 +12,7 @@ export const ListModal = styled.div`
   top: 70%;
   right: 0;
   margin-top: 8px;
+  z-index: 3;
 `;
 
 export const ListTitle = styled.div`

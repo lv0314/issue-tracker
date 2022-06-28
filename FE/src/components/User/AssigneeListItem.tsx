@@ -6,6 +6,8 @@ import CHECK_OFF_CIRCLE from '@/assets/Icons/checkOffCircle.svg';
 type AssigneeListItemProps = {
   assignee: string;
   assigneeProfileImg: string;
+  onClick(e: React.MouseEvent<HTMLElement>): void;
+  userId: string;
 };
 
 const StyledListItem = styled.li`
@@ -19,9 +21,11 @@ const StyledListItem = styled.li`
 export function AssigneeListItem({
   assignee,
   assigneeProfileImg,
+  onClick,
+  userId,
 }: AssigneeListItemProps) {
   return (
-    <StyledListItem>
+    <StyledListItem onClick={onClick} data-id={userId}>
       <Badge
         imgSRC={assigneeProfileImg}
         alt={`${assignee}프로필`}

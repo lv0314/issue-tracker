@@ -8,18 +8,48 @@ import { ListModal } from '@/components/common/ListModal';
 import { AssigneeListItem } from '@/components/User/AssigneeListItem';
 import { LabelListItem } from '@/components/Label/LabelListItem';
 
+type AssigneeHandler = React.MouseEvent<HTMLElement>;
+
 export function AddIssueSideBar() {
   const assigneeData = useRecoilValue(assigneeList);
   const labelData = useRecoilValue(LabelData);
-  // const issueLabelist = useRecoilValue();
-  // const issueMilestoneList = useRecoilValue();
-  // const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState(null);
-  // const [labelDetailSummary, setLabelDetailSummary] = useState(null);
+  const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState<
+    {
+      name: string;
+      profileImage: string;
+    }[]
+  >([]);
+  const [labelDetailSummary, setLabelDetailSummary] = useState();
   // const [MilestoneDetailSummary, setMilestoneDeatilSummary] = useState(null);
+
+  const handleAssigneeDetails = (e: AssigneeHandler) => {
+    const clickedAssigneeName = (e.currentTarget as HTMLElement).dataset.id;
+
+    if (assigneeDetailSummary.find(data => data.name === clickedAssigneeName)) {
+      return;
+    }
+
+    const targetAssignee = assigneeData.find(
+      data => data.name === clickedAssigneeName,
+    );
+
+    if (!targetAssignee) {
+      return;
+    }
+
+    assigneeDetailSummary.push(targetAssignee);
+
+    setAssigneeDeatilSummary(assigneeDetailSummary);
+  };
 
   const sideBarAssigneeList = assigneeData
     ? assigneeData.map(({ name, profileImage }) => (
-        <AssigneeListItem assignee={name} assigneeProfileImg={profileImage} />
+        <AssigneeListItem
+          assignee={name}
+          assigneeProfileImg={profileImage}
+          onClick={handleAssigneeDetails}
+          userId={name}
+        />
       ))
     : null;
 
