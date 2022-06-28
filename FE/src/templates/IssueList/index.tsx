@@ -92,18 +92,23 @@ export function IssueList() {
       </ListTableHeader>
 
       <ListTableItems>
-        {userIssueData.issues.map((issue: IssueItemProps) => (
-          <IssueItem
-            issueTitle={issue.issueTitle}
-            issueNumber={issue.issueNumber}
-            issueWriter={issue.issueWriter}
-            timestamp={getTrimmedMessage(getDiffrentMinutes(issue.timestamp))}
-            milestone={issue.milestone}
-            label={issue.label}
-            assignee={issue.assignee}
-            key={`${issue.issueTitle}${Date.now()}`}
-          />
-        ))}
+        {userIssueData.issues.map(
+          (issue: IssueItemProps) =>
+            issue.open && (
+              <IssueItem
+                issueTitle={issue.issueTitle}
+                issueNumber={issue.issueNumber}
+                issueWriter={issue.issueWriter}
+                timestamp={getTrimmedMessage(
+                  getDiffrentMinutes(issue.timestamp),
+                )}
+                milestone={issue.milestone}
+                label={issue.label}
+                assignee={issue.assignee}
+                key={`${issue.issueTitle}${Date.now()}`}
+              />
+            ),
+        )}
       </ListTableItems>
     </ListTable>
   );
