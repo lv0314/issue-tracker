@@ -3,7 +3,7 @@ import { Text } from '@/components/common/Text';
 
 type ListModalProps = {
   listTitle: string;
-  children: React.ReactNode[];
+  children: React.ReactNode;
 };
 
 // TODO:데이터를 받아서 title 부분과, map 돌려서 ListItem 생성

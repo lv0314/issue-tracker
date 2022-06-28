@@ -9,6 +9,7 @@ export const ListModal = styled.div`
   overflow: hidden;
   background-color: ${({ theme }) => theme.color.offwhite};
   position: absolute;
+  top: 70%;
   right: 0;
   margin-top: 8px;
 `;
