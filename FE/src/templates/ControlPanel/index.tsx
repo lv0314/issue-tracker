@@ -16,11 +16,11 @@ export function ControlPanel() {
             <Text text="필터" fontWeight="bold" color="placeholder" />
             <UNDER_ARROW />
           </summary>
-          <ListModal listTitle="라벨 필터">
+          <S.DetailMenu>
             {['3번', '4번', '5번'].map(title => (
               <LabelFitlerItem contents={title} key={`${title}${Date.now()}`} />
             ))}
-          </ListModal>
+          </S.DetailMenu>
         </S.FilterDetail>
 
         <S.FilterForm>
