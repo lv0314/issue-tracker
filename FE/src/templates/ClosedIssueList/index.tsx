@@ -28,10 +28,6 @@ const filterBooleanCount: filterBooleanCountProps = (
   return count.length;
 };
 
-type Override<T1, T2> = Omit<T1, keyof T2> & T2;
-
-type UserIssueProps = Override<IssueItemProps, { timestamp: Date }>;
-
 const getDiffrentMinutes = (timestamp: string): number => {
   const now = new Date();
   const copiedTimestamp = new Date(timestamp);
@@ -55,14 +51,14 @@ const getTrimmedMessage = (minutes: number): string => {
   return `${Math.floor(minutes / 1440)}일`;
 };
 
-export function IssueList() {
+export function ClosedIssueList() {
   const userIssueData = useRecoilValue(getIssue);
 
   return (
     <ListTable>
       <ListTableHeader>
         <S.IssueHeaderCheckOpen>
-          <input type="checkbox" />
+          <input type="checkbox" />{' '}
           <CheckWhetherOpen
             openIssueCount={filterBooleanCount(
               userIssueData.issues,
@@ -94,7 +90,7 @@ export function IssueList() {
       <ListTableItems>
         {userIssueData.issues.map(
           (issue: IssueItemProps) =>
-            issue.open && (
+            !issue.open && (
               <IssueItem
                 issueTitle={issue.issueTitle}
                 issueNumber={issue.issueNumber}
