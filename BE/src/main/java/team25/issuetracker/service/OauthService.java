@@ -6,15 +6,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
+import team25.issuetracker.controller.ResponseTokenMessage;
 import team25.issuetracker.domain.OauthRefreshToken;
 import team25.issuetracker.repository.InMemoryProviderRepository;
 import team25.issuetracker.JwtTokenProvider;
-import team25.issuetracker.controller.ResponseLogin;
+import team25.issuetracker.controller.LoginResponse;
 import team25.issuetracker.domain.Member;
 import team25.issuetracker.repository.MemberRepository;
 import team25.issuetracker.OauthAttributes;
@@ -41,7 +43,7 @@ public class OauthService {
 		this.refreshTokenRepository = refreshTokenRepository;
 	}
 
-	public ResponseLogin login(String providerName, String code) {
+	public LoginResponse login(String providerName, String code) {
 		// 프론트에서 넘어온 provider 이름을 통해 InMemoryProviderRepository에서 OauthProvider 가져오기
 		OauthProvider provider = inMemoryProviderRepository.findByProviderName(providerName);
 
@@ -67,7 +69,7 @@ public class OauthService {
 			.build();
 		refreshTokenRepository.save(refreshTokenObj);
 
-		return ResponseLogin.builder()
+		return LoginResponse.builder()
 			.id(member.getId())
 			.name(member.getName())
 			.email(member.getEmail())
@@ -84,30 +86,34 @@ public class OauthService {
 		return refreshTokenRepository.findByRefreshToken(refreshToken);
 	}
 
-	public Map<String, String> validateRefreshToken(String refreshToken) {
-		OauthRefreshToken refreshToken1 = getRefreshToken(refreshToken).get();
-		String createdAccessToken = jwtTokenProvider.validateRefreshToken(refreshToken1);
-
-		return createRefreshJson(createdAccessToken);
+	public ResponseTokenMessage validateRefreshToken(String refreshToken) {
+		OauthRefreshToken refreshTokenObj = getRefreshToken(refreshToken).get();
+		String createdAccessToken = jwtTokenProvider.validateRefreshToken(refreshTokenObj);
+		RefreshJson refreshJson = createRefreshJson(createdAccessToken);
+		return ResponseTokenMessage.builder()
+			.accessToken(refreshJson.getAccessToken())
+			.refreshToken(refreshTokenObj.getRefreshToken())
+			.errorType(refreshJson.getErrorType())
+			.message(refreshJson.getMessage())
+			.status(refreshJson.getStatus())
+			.build();
 	}
 
-	public Map<String, String> createRefreshJson(String createdAccessToken) {
+	public RefreshJson createRefreshJson(String createdAccessToken) {
 
-		Map<String, String> map = new HashMap<>();
 		if (createdAccessToken == null) {
-			map.put("errortype", "Forbidden");
-			map.put("status", "402");
-			map.put("message", "Refresh 토큰이 만료되었습니다. 로그인이 필요합니다.");
-
-			return map;
+			return RefreshJson.builder()
+				.accessToken("")
+				.errorType(HttpStatus.FORBIDDEN)
+				.status(HttpStatus.PAYMENT_REQUIRED)
+				.message("Refresh 토큰이 만료되었습니다. 로그인이 필요합니다.")
+				.build();
 		}
-		//기존에 존재하는 accessToken 제거
-
-		map.put("status", "200");
-		map.put("message", "Refresh 토큰을 통한 Access Token 생성이 완료되었습니다.");
-		map.put("accessToken", createdAccessToken);
-
-		return map;
+		return RefreshJson.builder()
+			.accessToken(createdAccessToken)
+			.status(HttpStatus.OK)
+			.message("Refresh 토큰을 통한 Access Token 생성이 완료되었습니다.")
+			.build();
 	}
 
 	private Member saveOrUpdate(UserProfile userProfile) {
