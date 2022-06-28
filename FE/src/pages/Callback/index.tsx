@@ -9,7 +9,7 @@ export function Callback() {
   useEffect(() => {
     fetch(`http://15.164.230.46:8080/login/oauth/github?code=${code}`)
       .then(data => data.json())
-      .then(() => navigate('/issueList'));
+      .then(() => navigate('/issueList/open'));
   }, []);
 
   return <S.Callback />;

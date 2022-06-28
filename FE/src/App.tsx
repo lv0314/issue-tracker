@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/issueList" element={<IssueListPage />} />
+            <Route path="/issueList/*" element={<IssueListPage />} />
             <Route path="/redirect/oauth" element={<Callback />} />
             <Route path="/issueAdd" element={<AddIssuePage />} />
           </Routes>
