@@ -18,18 +18,12 @@ export function AddIssueSideBar() {
   const assigneeData = useRecoilValue(assigneeList);
   const labelData = useRecoilValue(LabelData);
   const milestoneData = useRecoilValue(MilestoneData);
-  // const issueLabelist = useRecoilValue();
-  // const issueMilestoneList = useRecoilValue();
-  // const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState(null);
-  // const [labelDetailSummary, setLabelDetailSummary] = useState(null);
   const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState<
     {
       name: string;
       profileImage: string;
     }[]
   >([]);
-  // const [labelDetailSummary, setLabelDetailSummary] = useState();
-  // const [MilestoneDetailSummary, setMilestoneDeatilSummary] = useState(null);
 
   const handleAssigneeDetails = (e: AssigneeHandler) => {
     const clickedAssigneeName = (e.currentTarget as HTMLElement).dataset.id;
@@ -91,7 +85,7 @@ export function AddIssueSideBar() {
             <Text text="담당자" />
             <PLUS_IMOG />
           </S.titleSummary>
-          <ul>{sideBarAssigneeSummaryList}</ul>
+          {sideBarAssigneeSummaryList}
         </summary>
         <ListModal listTitle="담당자 추가" rightGap="10%">
           {sideBarAssigneeList}
@@ -100,8 +94,10 @@ export function AddIssueSideBar() {
 
       <S.OptionDetail>
         <summary>
-          <Text text="레이블" />
-          <Text text="아이콘" />
+          <S.titleSummary>
+            <Text text="레이블" />
+            <PLUS_IMOG />
+          </S.titleSummary>
         </summary>
         <ListModal listTitle="라벨 추가" rightGap="10%">
           {sideBarLabelList}
@@ -110,8 +106,10 @@ export function AddIssueSideBar() {
 
       <S.OptionDetail>
         <summary>
-          <Text text="마일스톤" />
-          <Text text="아이콘" />
+          <S.titleSummary>
+            <Text text="마일스톤" />
+            <PLUS_IMOG />
+          </S.titleSummary>
         </summary>
         <ListModal listTitle="마일스톤 추가" rightGap="10%">
           {sideBarMilestoneList}
