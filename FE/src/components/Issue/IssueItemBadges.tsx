@@ -39,6 +39,7 @@ export function IssueItemBadges({ milestone, assignee }: IssueItemBadgesProps) {
         {assignee &&
           assignee.map(user => (
             <Badge
+              badgeSize="small"
               imgSRC={user.profileImage}
               alt={user.name}
               key={`${user.name}${Date.now()}`}
