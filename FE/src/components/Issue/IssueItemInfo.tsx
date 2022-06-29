@@ -32,7 +32,7 @@ const MilestoneInfo = styled.div`
 
 type Label = {
   name: string;
-  color?: string;
+  color: string;
   textColor?: string;
 };
 
@@ -46,7 +46,7 @@ type Issue = {
   issueWriter: string;
   timestamp: string;
   milestone?: Milestone;
-  label?: Label[];
+  label: Label[];
 };
 
 export function IssueItemInfo({
@@ -67,7 +67,7 @@ export function IssueItemInfo({
             label.map(el => (
               <LabelBadge
                 name={el.name}
-                backgroundColor="#004DE3"
+                backgroundColor={el.color}
                 key={`${el.name}${Date.now()}`}
               />
             ))}
