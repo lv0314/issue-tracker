@@ -1,4 +1,5 @@
 import { useRecoilValue } from 'recoil';
+import { Link } from 'react-router-dom';
 import * as S from './style';
 import { LabelNavItem } from '@/components/Label/LabelNavItem';
 import { MilestonNavItem } from '@/components/Milestone/MilestoneNavItem';
@@ -16,11 +17,11 @@ export function NavigationTab() {
         <LabelNavItem labelLength={labels.length} />
         <MilestonNavItem milestoneLength={milestones.length} />
       </S.NavigationTab>
-      <a href="/issueAdd">
+      <Link to="/issueAdd">
         <Button size="small" color="primary" fontSize="base">
           이슈 작성
         </Button>
-      </a>
+      </Link>
     </S.Layout>
   );
 }
