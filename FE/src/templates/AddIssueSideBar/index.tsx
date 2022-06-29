@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import * as S from './style';
 import { assigneeList } from '@/recoil/atoms/assigneeData';
 import { labelData as LabelData } from '@/recoil/atoms/LabelData';
@@ -9,6 +9,7 @@ import { ListModal } from '@/components/common/ListModal';
 import { AssigneeListItem } from '@/components/User/AssigneeListItem';
 import { LabelListItem } from '@/components/Label/LabelListItem';
 import { MilestoneSideBarDetailListItem } from '@/components/Milestone/MilestoneSideBarDetailListItem';
+import { addIssue } from '@/recoil/atoms/addIssue';
 import { SideBarAssigneeItem } from '@/components/User/SideBarAssigneeItem';
 import PLUS_IMOG from '@/assets/Icons/plus.svg';
 
@@ -24,6 +25,7 @@ export function AddIssueSideBar() {
       profileImage: string;
     }[]
   >([]);
+  const [issueState, setIssueState] = useRecoilState(addIssue);
 
   const handleAssigneeDetails = (e: AssigneeHandler) => {
     const clickedAssigneeName = (e.currentTarget as HTMLElement).dataset.id;
@@ -32,7 +34,7 @@ export function AddIssueSideBar() {
       const newAssigneeDetailSummary = assigneeDetailSummary.filter(
         assignee => assignee.name !== clickedAssigneeName,
       );
-
+      setIssueState({ ...issueState, assignee: newAssigneeDetailSummary });
       setAssigneeDeatilSummary(newAssigneeDetailSummary);
       return;
     }
@@ -45,7 +47,7 @@ export function AddIssueSideBar() {
     }
 
     const newAssigneeDetailSummary = [...assigneeDetailSummary, targetAssignee];
-
+    setIssueState([...issueState, targetAssignee]);
     setAssigneeDeatilSummary(newAssigneeDetailSummary);
   };
 

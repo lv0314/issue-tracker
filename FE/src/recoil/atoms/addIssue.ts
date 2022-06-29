@@ -7,8 +7,9 @@ type IssueData = {
   timestamp: string | null;
   milestone: string | null;
   label: string | null;
-  assignee: string | null;
+  assignee: { name: string; profileImage: string }[] | null;
   open: string | null;
+  comments?: string | null;
 };
 
 export const addIssue = atom<IssueData>({
@@ -24,3 +25,5 @@ export const addIssue = atom<IssueData>({
     open: null,
   },
 });
+
+// comments: [{comment: ~~, author: “”, timestamp: “”, file: “”}]

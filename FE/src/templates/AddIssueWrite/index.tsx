@@ -10,11 +10,18 @@ export function AddIssueWrite() {
   const [issueWrite, setIssueWrite] = useRecoilState(addIssue);
   const deferredIssueData = useDeferredValue(issueWrite);
 
-  const handleIssueWrite = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIssueTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
 
     setIssueWrite({ ...deferredIssueData, issueTitle: newTitle });
   };
+
+  const handleIssueWriteInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newIssueComments = e.target.value;
+
+    setIssueWrite({ ...deferredIssueData, comments: newIssueComments });
+  };
+
   const deferedIssueWrite = useMemo(
     () => (
       <S.AddIssueWrite>
@@ -23,9 +30,15 @@ export function AddIssueWrite() {
           alt="profile image"
         />
         <S.IssueType>
-          <S.IssueTypeTitle placeholder="제목" onChange={handleIssueWrite} />
+          <S.IssueTypeTitle
+            placeholder="제목"
+            onChange={handleIssueTitleInput}
+          />
           <S.IssueTypeContents>
-            <S.IssueTextArea placeholder="코멘트를 입력하세요" />
+            <S.IssueTextArea
+              placeholder="코멘트를 입력하세요"
+              onChange={handleIssueWriteInput}
+            />
             <S.AttachFile>
               <S.AttachFileLabel>
                 <PAPERCLIP_ICON />
@@ -44,6 +57,5 @@ export function AddIssueWrite() {
     ),
     [deferredIssueData],
   );
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{deferedIssueWrite}</>;
+  return deferedIssueWrite;
 }
