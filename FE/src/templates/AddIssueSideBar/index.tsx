@@ -12,6 +12,7 @@ import { MilestoneSideBarDetailListItem } from '@/components/Milestone/Milestone
 import { addIssue } from '@/recoil/atoms/addIssue';
 import { SideBarAssigneeItem } from '@/components/User/SideBarAssigneeItem';
 import PLUS_IMOG from '@/assets/Icons/plus.svg';
+import { LabelBadge } from '@/components/Label/LabelBadge';
 
 type AssigneeHandler = React.MouseEvent<HTMLElement>;
 
@@ -19,13 +20,21 @@ export function AddIssueSideBar() {
   const assigneeData = useRecoilValue(assigneeList);
   const labelData = useRecoilValue(LabelData);
   const milestoneData = useRecoilValue(MilestoneData);
+  const [issueState, setIssueState] = useRecoilState(addIssue);
   const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState<
     {
       name: string;
       profileImage: string;
     }[]
   >([]);
-  const [issueState, setIssueState] = useRecoilState(addIssue);
+  const [labelDetailSummary, setLabelDetailSummary] = useState<
+    {
+      name: string;
+      description: string;
+      color: string;
+      textColor: string;
+    }[]
+  >([]);
 
   const handleAssigneeDetails = (e: AssigneeHandler) => {
     const clickedAssigneeName = (e.currentTarget as HTMLElement).dataset.id;
@@ -38,6 +47,7 @@ export function AddIssueSideBar() {
       setAssigneeDeatilSummary(newAssigneeDetailSummary);
       return;
     }
+
     const targetAssignee = assigneeData.find(
       data => data.name === clickedAssigneeName,
     );
@@ -54,6 +64,33 @@ export function AddIssueSideBar() {
     setAssigneeDeatilSummary(newAssigneeDetailSummary);
   };
 
+  const handleLabelDetails = (e: AssigneeHandler) => {
+    const clickedLabelName = (e.currentTarget as HTMLElement).dataset.name;
+
+    if (labelDetailSummary.find(data => data.name === clickedLabelName)) {
+      const newLabelDetailSummary = labelDetailSummary.filter(
+        label => label.name !== clickedLabelName,
+      );
+
+      setIssueState({ ...issueState, label: newLabelDetailSummary });
+      setLabelDetailSummary(newLabelDetailSummary);
+      return;
+    }
+
+    const targetLabel = labelData.find(data => data.name === clickedLabelName);
+
+    if (!targetLabel) {
+      return;
+    }
+
+    const newLabelDetailSummary = [...labelDetailSummary, targetLabel];
+    setIssueState({
+      ...issueState,
+      label: [...issueState.label, targetLabel],
+    });
+    setLabelDetailSummary(newLabelDetailSummary);
+  };
+
   const sideBarAssigneeList = assigneeData
     ? assigneeData.map(({ name, profileImage }) => (
         <AssigneeListItem
@@ -67,7 +104,7 @@ export function AddIssueSideBar() {
 
   const sideBarLabelList = labelData
     ? labelData.map(({ color, name }) => (
-        <LabelListItem color={color} name={name} />
+        <LabelListItem color={color} name={name} onClick={handleLabelDetails} />
       ))
     : null;
 
@@ -82,6 +119,15 @@ export function AddIssueSideBar() {
         <SideBarAssigneeItem name={name} profileImage={profileImage} />
       ))
     : null;
+
+  const sideBarLabelSummaryList = labelDetailSummary
+    ? labelDetailSummary.map(({ name, color }) => (
+        <LabelBadge name={name} backgroundColor={color} />
+      ))
+    : null;
+
+  console.log(issueState);
+
   return (
     <S.OptionSideBar>
       <S.OptionDetail>
@@ -103,6 +149,7 @@ export function AddIssueSideBar() {
             <Text text="레이블" />
             <PLUS_IMOG />
           </S.titleSummary>
+          {sideBarLabelSummaryList}
         </summary>
         <ListModal listTitle="라벨 추가" rightGap="10%">
           {sideBarLabelList}

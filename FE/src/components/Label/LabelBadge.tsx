@@ -17,8 +17,10 @@ const BadgeWrapper = styled.div.attrs<BadgeWrapperProps>(
     },
   }),
 )<BadgeWrapperProps>`
-  padding: 4px 16px;
   border-radius: 30px;
+  width: fit-content;
+  height: fit-content;
+  padding: 4px 16px;
 `;
 
 export function LabelBadge({

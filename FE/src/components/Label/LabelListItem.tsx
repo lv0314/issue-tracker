@@ -5,6 +5,7 @@ import CHECK_OFF_CIRCLE from '@/assets/Icons/checkOffCircle.svg';
 type LabelListItemProps = {
   color: string;
   name: string;
+  onClick?(e: React.MouseEvent<HTMLElement>): void;
 };
 
 const StyledListItem = styled.li`
@@ -23,9 +24,9 @@ const LabelColorBadge = styled.div`
   background-color: ${({ color }) => color};
 `;
 
-export function LabelListItem({ color, name }: LabelListItemProps) {
+export function LabelListItem({ color, name, onClick }: LabelListItemProps) {
   return (
-    <StyledListItem>
+    <StyledListItem data-name={name} onClick={onClick}>
       <LabelColorBadge color={color} />
       <Text text={name} styles="width: 100px" />
       <CHECK_OFF_CIRCLE />

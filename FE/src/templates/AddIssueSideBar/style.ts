@@ -31,11 +31,11 @@ export const OptionDetail = styled.details`
     flex-direction: column;
 
     & > :first-child {
-      padding-top: 18px;
+      margin-top: 18px;
     }
 
     & > :last-child {
-      padding-bottom: 18px;
+      margin-bottom: 18px;
     }
   }
 `;
