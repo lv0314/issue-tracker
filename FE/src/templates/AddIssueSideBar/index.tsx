@@ -47,7 +47,10 @@ export function AddIssueSideBar() {
     }
 
     const newAssigneeDetailSummary = [...assigneeDetailSummary, targetAssignee];
-    setIssueState([...issueState, targetAssignee]);
+    setIssueState({
+      ...issueState,
+      assignee: [...issueState.assignee, targetAssignee],
+    });
     setAssigneeDeatilSummary(newAssigneeDetailSummary);
   };
 

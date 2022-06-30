@@ -7,7 +7,7 @@ type IssueData = {
   timestamp: string | null;
   milestone: string | null;
   label: string | null;
-  assignee: { name: string; profileImage: string }[] | null;
+  assignee: { name: string; profileImage: string }[] | [];
   open: string | null;
   comments?: string | null;
 };
@@ -21,7 +21,7 @@ export const addIssue = atom<IssueData>({
     timestamp: null,
     milestone: null,
     label: null,
-    assignee: null,
+    assignee: [],
     open: null,
   },
 });

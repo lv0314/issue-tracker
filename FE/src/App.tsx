@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 import { GlobalStyle } from '@/styles/GlobalStyle';
 import { LoginPage } from '@/pages/Login';
 import { theme } from '@/styles/theme';
-import { Callback } from '@/pages/Callback';
+import { Callback } from '@/pages/LoginRedirect';
 import { IssueListPage } from '@/pages/IssueList';
 import { AddIssuePage } from '@/pages/AddIssue';
 
