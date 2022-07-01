@@ -7,6 +7,25 @@ type LabelType = {
   textColor: string;
 };
 
+type newIssueType = {
+  issueTitle: string;
+  issueNumber: string;
+  issueWriter: string;
+  timestamp: string;
+  milestone: string;
+  label:
+    | {
+        name: string;
+        description: string;
+        color: string;
+        textColor: string;
+      }[]
+    | [];
+  assignee: { name: string; profileImage: string }[] | [];
+  open: boolean;
+  comments?: string | null;
+};
+
 const issues = {
   issues: [
     {
@@ -270,7 +289,7 @@ const handlers = [
     );
   }),
 
-  rest.post('/newIssue', (req, res, ctx) => {
+  rest.post<any>('/newIssue', (req, res, ctx) => {
     const newIssue = req.body;
     issues.issues.push(newIssue);
     return res(ctx.status(200));

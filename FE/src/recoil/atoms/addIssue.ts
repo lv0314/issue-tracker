@@ -1,11 +1,11 @@
 import { atom } from 'recoil';
 
 type IssueData = {
-  issueTitle: string | null;
-  issueNumber: string | null;
-  issueWriter: string | null;
-  timestamp: string | null;
-  milestone: string | null;
+  issueTitle: string;
+  issueNumber: string;
+  issueWriter: string;
+  timestamp: string;
+  milestone: string;
   label:
     | {
         name: string;
@@ -22,11 +22,11 @@ type IssueData = {
 export const addIssue = atom<IssueData>({
   key: 'addIssue',
   default: {
-    issueTitle: null,
-    issueNumber: null,
-    issueWriter: null,
-    timestamp: null,
-    milestone: null,
+    issueTitle: '',
+    issueNumber: '',
+    issueWriter: '',
+    timestamp: '',
+    milestone: '',
     label: [],
     assignee: [],
     open: true,
