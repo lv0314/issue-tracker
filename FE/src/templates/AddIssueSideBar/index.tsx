@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import * as S from './style';
 import { assigneeList } from '@/recoil/atoms/assigneeData';
-import { labelData as LabelData } from '@/recoil/atoms/LabelData';
+// import { labelData as LabelData } from '@/recoil/atoms/LabelData';
 import { milestoneData as MilestoneData } from '@/recoil/atoms/MilestoneData';
 import { Text } from '@/components/common/Text';
 import { ListModal } from '@/components/common/ListModal';
@@ -12,12 +12,14 @@ import { MilestoneSideBarDetailListItem } from '@/components/Milestone/Milestone
 import { addIssue } from '@/recoil/atoms/addIssue';
 import { SideBarAssigneeItem } from '@/components/User/SideBarAssigneeItem';
 import PLUS_IMOG from '@/assets/Icons/plus.svg';
+import { getLabels } from '@/recoil/selectors/getLabels';
+import { LabelItemProps } from '@/components/Label/LabelItem';
 
 type AssigneeHandler = React.MouseEvent<HTMLElement>;
 
 export function AddIssueSideBar() {
   const assigneeData = useRecoilValue(assigneeList);
-  const labelData = useRecoilValue(LabelData);
+  const { labels } = useRecoilValue(getLabels);
   const milestoneData = useRecoilValue(MilestoneData);
   const [assigneeDetailSummary, setAssigneeDeatilSummary] = useState<
     {
@@ -65,8 +67,8 @@ export function AddIssueSideBar() {
       ))
     : null;
 
-  const sideBarLabelList = labelData
-    ? labelData.map(({ color, name }) => (
+  const sideBarLabelList = labels
+    ? labels.map(({ color, name }: LabelItemProps) => (
         <LabelListItem color={color} name={name} />
       ))
     : null;

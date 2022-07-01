@@ -7,6 +7,7 @@ import { theme } from '@/styles/theme';
 import { Callback } from '@/pages/LoginRedirect';
 import { IssueListPage } from '@/pages/IssueList';
 import { AddIssuePage } from '@/pages/AddIssue';
+import { LabelsPage } from './pages/Labels';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/issueList/*" element={<IssueListPage />} />
             <Route path="/redirect/oauth" element={<Callback />} />
             <Route path="/issueAdd" element={<AddIssuePage />} />
+            <Route path="/labels" element={<LabelsPage />} />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>
