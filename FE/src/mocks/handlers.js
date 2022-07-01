@@ -263,6 +263,12 @@ const handlers = [
       }),
     );
   }),
+
+  rest.post('/newIssue', (req, res, ctx) => {
+    const newIssue = req.body;
+    issues.issues.push(newIssue);
+    return res(ctx.status(200));
+  }),
 ];
 
 export default handlers;
