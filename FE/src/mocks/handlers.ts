@@ -1,5 +1,12 @@
 import { rest } from 'msw';
 
+type LabelType = {
+  name: string;
+  description: string;
+  color: string;
+  textColor: string;
+};
+
 const issues = {
   issues: [
     {
@@ -139,42 +146,41 @@ const issues = {
   ],
 };
 
+const labelData = {
+  labels: [
+    {
+      name: 'FE',
+      description: '프론트엔드 이슈',
+      color: '#004D23',
+      textColor: 'offwhite',
+    },
+    {
+      name: 'BE',
+      description: '백엔드 이슈',
+      color: '#34C759',
+      textColor: 'offwhite',
+    },
+    {
+      name: 'feat',
+      description: '새로운 기능 개발',
+      color: '#FF3830',
+      textColor: 'offwhite',
+    },
+    {
+      name: 'test',
+      description: '기능 테스트',
+      color: '#6E7191',
+      textColor: 'offwhite',
+    },
+  ],
+};
+
 const handlers = [
   rest.get('/issue', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(issues));
   }),
   rest.get('/labels', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        labels: [
-          {
-            name: 'FE',
-            description: '프론트엔드 이슈',
-            color: '#004D23',
-            textColor: 'offwhite',
-          },
-          {
-            name: 'BE',
-            description: '백엔드 이슈',
-            color: '#34C759',
-            textColor: 'offwhite',
-          },
-          {
-            name: 'feat',
-            description: '새로운 기능 개발',
-            color: '#FF3830',
-            textColor: 'offwhite',
-          },
-          {
-            name: 'test',
-            description: '기능 테스트',
-            color: '#6E7191',
-            textColor: 'offwhite',
-          },
-        ],
-      }),
-    );
+    return res(ctx.status(200), ctx.json(labelData));
   }),
   rest.get('/milestones', (req, res, ctx) => {
     return res(
@@ -268,6 +274,11 @@ const handlers = [
     const newIssue = req.body;
     issues.issues.push(newIssue);
     return res(ctx.status(200));
+  }),
+  rest.post<LabelType>('/add/labels', (req, res, ctx) => {
+    labelData.labels.push(req.body);
+
+    return res(ctx.status(201));
   }),
 ];
 

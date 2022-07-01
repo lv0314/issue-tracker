@@ -1,10 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { getIssue } from '@/recoil/selectors/getIssue';
 import * as S from './style';
-import { LabelFilterDetail } from '@/components/Label/LabelFilterDetail';
-import { MilestoneFilterDetail } from '@/components/Milestone/MilestoneFilterDetail';
-import { AssigneeFilterDetail } from '@/components/User/AssigneeFilterDetail';
-import { AuthorFilterDetail } from '@/components/User/AuthorFilterDetail';
 import {
   ListTable,
   ListTableHeader,
@@ -12,10 +8,8 @@ import {
 } from '@/components/common/ListTable';
 import { IssueItem, IssueItemProps } from '@/components/Issue/IssueItem';
 import { CheckWhetherOpen } from '@/components/Issue/CheckWhetherOpen';
-import { getLabels } from '@/recoil/selectors/getLabels';
-import { getMilestones } from '@/recoil/selectors/getMilestones';
-import { getAssginees } from '@/recoil/selectors/getAssignees';
 import { getIssueOpen } from '@/recoil/selectors/getIssueOpen';
+import { IssueListFilters } from '../IssueListFilters';
 
 // TODO: service 디렉토리로 분리
 type filterBooleanCountProps = {
@@ -61,9 +55,6 @@ const getTrimmedMessage = (minutes: number): string => {
 
 export function IssueList() {
   const { issues } = useRecoilValue(getIssue);
-  const { labels } = useRecoilValue(getLabels);
-  const { milestones } = useRecoilValue(getMilestones);
-  const { assignees } = useRecoilValue(getAssginees);
   const openState = useRecoilValue(getIssueOpen);
 
   const filteredIssueItems = issues.map(
@@ -93,13 +84,7 @@ export function IssueList() {
           />
         </S.IssueHeaderCheckOpen>
 
-        {/* TODO: 템플릿으로 분리 */}
-        <S.IssueHeaderFilters>
-          <AuthorFilterDetail userData={assignees} />
-          <LabelFilterDetail labelData={labels} />
-          <MilestoneFilterDetail milestoneList={milestones} />
-          <AssigneeFilterDetail userData={assignees} />
-        </S.IssueHeaderFilters>
+        <IssueListFilters />
       </ListTableHeader>
 
       <ListTableItems>{filteredIssueItems}</ListTableItems>

@@ -1,11 +1,10 @@
 import { Text } from '../common/Text';
 import UNDER_ARROW from '@/assets/UnderArrow.svg';
 import { ListModal } from '../common/ListModal';
-import { LabelFitlerItem } from './LabelFilterItem';
 import { SortDetails } from '../common/SortDetails';
 import { LabelListItem } from './LabelListItem';
 
-type LabelFilterDetailProps = {
+export type LabelFilterDetailProps = {
   labelData: {
     name: string;
     color: string;
