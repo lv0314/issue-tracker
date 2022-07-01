@@ -1,14 +1,13 @@
 package team25.issuetracker.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.Builder;
 import lombok.Getter;
 import team25.issuetracker.Role;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -16,7 +15,11 @@ public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="member_id")
 	private Long id;
+
+	@OneToMany(mappedBy = "member")
+	private List<Comment> comments = new ArrayList<>();
 
 	private String oauthId;
 
