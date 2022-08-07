@@ -6,7 +6,7 @@ export const theme: DefaultTheme = {
     small: '14px',
     base: '16px',
     large: '18px',
-    larger: '20px',
+    larger: '24px',
     header: '32px',
     login: '56px',
   },
